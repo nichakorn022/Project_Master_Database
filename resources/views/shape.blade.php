@@ -75,7 +75,7 @@
                                 {{__('content.status')}}</th>
                             <!-- <th class="px-4 py-3 text-left">
                                 {{__('content.process')}}</th> -->
-                            <th class="px-4 py-3 text-right">
+                            <th class="px-4 py-3 text-left">
                                 {{__('content.updated_by')}}</th>
                             <th class="px-4 py-3 text-end w-[80px]">
                                 {{__('content.action')}}</th>
@@ -106,8 +106,7 @@
                                         {{ $status }}
                                     </span>
                                 </td>
-                                <td class="px-4 py-3">{{ $process }}</td>
-                                <td class="px-4 py-3 text-right">{{ $updatedBy }}</td>
+                                <td class="px-4 py-3 text-left">{{ $updatedBy }}</td>
                                 <td class="px-4 py-3">
                                     <!-- Action Buttons -->
                                     <div class="flex justify-end gap-1">
