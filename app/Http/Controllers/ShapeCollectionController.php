@@ -28,7 +28,7 @@ class ShapeCollectionController extends Controller
                 ->orWhere('collection_name', 'LIKE', "%{$search}%");
             });
         }
-        $shapeCollections = $query->latest()->paginate($perPage)->appends($request->query());
+        $shapeCollections = $query->orderBy('collection_name', 'asc')->paginate($perPage)->appends($request->query());
 
 
         $permissions = $this->getUserPermissions();

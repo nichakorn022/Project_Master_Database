@@ -73,8 +73,8 @@
                                 {{__('content.type')}}</th>
                             <th class="px-4 py-3 text-left">
                                 {{__('content.status')}}</th>
-                            <th class="px-4 py-3 text-left">
-                                {{__('content.process')}}</th>
+                            <!-- <th class="px-4 py-3 text-left">
+                                {{__('content.process')}}</th> -->
                             <th class="px-4 py-3 text-right">
                                 {{__('content.updated_by')}}</th>
                             <th class="px-4 py-3 text-end w-[80px]">

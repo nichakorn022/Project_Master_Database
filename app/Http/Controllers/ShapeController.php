@@ -14,7 +14,7 @@ class ShapeController extends Controller
     {
         $relations = [
             'shapeType', 'status', 'shapeCollection', 'customer',
-            'itemGroup', 'process', 'designer', 'requestor', 'updater','images'
+            'itemGroup', 'designer', 'requestor', 'updater','images'
         ];
 
         // รับค่า perPage จาก request หรือใช้ default 10
