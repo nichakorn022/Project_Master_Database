@@ -3,7 +3,7 @@
     $hasFileImport = $user->getDirectPermissions()->pluck('name')->contains('file import');
 @endphp
 
-<nav class="flex flex-col gap-1 shadow-sm px-4">
+<nav class="flex flex-col gap-1 shadow-sm px-4 overflow-x-hidden overflow-y-auto">
     <x-sidebar.nav-item route="dashboard" icon="home" :label="__('sidebar.dashboard')" />
 
     <!-- Shape Section -->

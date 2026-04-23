@@ -43,7 +43,7 @@
         </a>
     </div>
 
-    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md md:col-span-2 mb-2">
+    <!-- <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md md:col-span-2 mb-2">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">{{__('content.create_history')}}</h2>
             <div>
@@ -60,7 +60,9 @@
         </div>
         <div class="w-full" style="height: 220px; position: relative;">
             <canvas id="productChart"></canvas>
-        </div>
+        </div> -->
+        < -- add export excel -- >
+        
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-6">
