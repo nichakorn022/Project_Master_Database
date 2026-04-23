@@ -112,6 +112,7 @@ Route::middleware(['auth'])->group(function () {
         // เมนูสำหรับนำเข้า-ส่งออกข้อมูลลูกค้า (Customers Management)
         Route::prefix('customers')->name('customers.')->middleware('permission:file import')->group(function () {
             Route::post('/import', [ImportController::class, 'customer_import'])->name('import');
+            Route::get('/export', [ExportController::class, 'customer_export'])->name('export');
             Route::get('/template', [ExportController::class, 'customer_exportTemplate'])->name('template');
         });
 
