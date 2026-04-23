@@ -13,6 +13,7 @@ return [
     'create' => 'สร้าง',
     'cancel' => 'ยกเลิก',
     'file import' => 'นำเข้าไฟล์',
+    'file export' => 'ส่งออกไฟล์',
     'manage users' => 'จัดการผู้ใช้',
     'profile_information' => 'ข้อมูลโปรไฟล์',
     'name' => 'ชื่อ',

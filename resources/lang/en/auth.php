@@ -13,6 +13,7 @@ return [
     'create' => 'Create',
     'cancel' => 'Cancel',
     'file import' => 'File Import',
+    'file export' => 'File Export',
     'manage users' => 'Manage Users',
     'profile_information' => 'Profile Information',
     'name' => 'Name',

@@ -21,6 +21,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'edit',
             'delete',
             'file import',
+            'file export',
             'manage users',
         ];
 
@@ -52,6 +53,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'edit',
             'delete',
             'file import',
+            'file export',
             'manage users',
         ]);
 
@@ -85,7 +87,7 @@ class RolesAndPermissionsSeeder extends Seeder
         }
 
         // ให้สิทธิ์เฉพาะ view
-        $normalUser->syncPermissions(['view']);
+        $normalUser->syncPermissions(['view', 'file export']);
 
         // ล้าง cache อีกครั้ง
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
