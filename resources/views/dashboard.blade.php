@@ -67,12 +67,13 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-6">
         <!-- Latest Shapes -->
         <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md ">
-            <h2 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">{{__('content.shape_history')}}</h2>
-            <a href="{{ route('shapes.export') }}"
-            class="flex-1 inline-flex items-center justify-center px-4 py-2 mb-4 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition
-            dark:bg-purple-500 dark:hover:bg-purple-600 hoverScale">
-            <i class="fas fa-file-export"></i> {{ __('content.export_all_data') }}
+            <div class="flex flex-wrap items-center justify-between mb-4 gap-3">
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">{{__('content.shape_history')}}</h2>
+                <a href="{{ route('shapes.export') }}"
+                class="inline-flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition dark:bg-blue-500 dark:hover:bg-blue-600 hoverScale">
+                <i class="fas fa-file-export"></i> {{ __('content.export_all_data') }}
             </a>
+            </div>
             <table class="w-full text-sm text-left text-gray-600 dark:text-gray-400">
                 <thead class="text-xs text-gray-500 dark:text-gray-400 uppercase bg-gray-50 dark:bg-gray-700">
                     <tr>
@@ -99,12 +100,13 @@
 
         <!-- Latest Glazes -->
         <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-            <h2 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">{{__('content.glaze_history')}}</h2>
-            <a href="{{ route('glazes.export') }}"
-            class="flex-1 inline-flex items-center justify-center px-4 py-2 mb-4 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition
-            dark:bg-purple-500 dark:hover:bg-purple-600 hoverScale">
-            <i class="fas fa-file-export"></i> {{ __('content.export_all_data') }}
+            <div class="flex flex-wrap items-center justify-between mb-4 gap-3">
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">{{__('content.glaze_history')}}</h2>
+                <a href="{{ route('glazes.export') }}"
+                class="inline-flex items-center justify-center px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition dark:bg-purple-500 dark:hover:bg-purple-600 hoverScale">
+                <i class="fas fa-file-export"></i> {{ __('content.export_all_data') }}
             </a>
+            </div>
             <table class="w-full text-sm text-left text-gray-600 dark:text-gray-400">
                 <thead class="text-xs text-gray-500 dark:text-gray-400 uppercase bg-gray-50 dark:bg-gray-700">
                     <tr>
@@ -132,12 +134,13 @@
         </div>        
         <!-- Latest Patterns -->
         <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-            <h2 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">{{__('content.pattern_history')}}</h2>
-            <a href="{{ route('patterns.export') }}"
-            class="flex-1 inline-flex items-center justify-center px-4 py-2 mb-4 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition
-            dark:bg-purple-500 dark:hover:bg-purple-600 hoverScale">
-            <i class="fas fa-file-export"></i> {{ __('content.export_all_data') }}
+            <div class="flex flex-wrap items-center justify-between mb-4 gap-3">
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">{{__('content.pattern_history')}}</h2>
+                <a href="{{ route('patterns.export') }}"
+                class="inline-flex items-center justify-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition dark:bg-green-500 dark:hover:bg-green-600 hoverScale">
+                <i class="fas fa-file-export"></i> {{ __('content.export_all_data') }}
             </a>
+            </div>
             <table class="w-full text-sm text-left text-gray-600 dark:text-gray-400">
                 <thead class="text-xs text-gray-500 dark:text-gray-400 uppercase bg-gray-50 dark:bg-gray-700">
                     <tr>
@@ -163,12 +166,13 @@
         </div>
         <!-- Latest Backstamps -->
         <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-            <h2 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">{{__('content.backstamp_history')}}</h2>
-            <a href="{{ route('backstamps.export') }}"
-            class="flex-1 inline-flex items-center justify-center px-4 py-2 mb-4 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition
-            dark:bg-purple-500 dark:hover:bg-purple-600 hoverScale">
-            <i class="fas fa-file-export"></i> {{ __('content.export_all_data') }}
+            <div class="flex flex-wrap items-center justify-between mb-4 gap-3">
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">{{__('content.backstamp_history')}}</h2>
+                <a href="{{ route('backstamps.export') }}"
+                class="inline-flex items-center justify-center px-4 py-2 bg-amber-600 text-white rounded-md hover:bg-amber-700 transition dark:bg-amber-500 dark:hover:bg-amber-600 hoverScale">
+                <i class="fas fa-file-export"></i> {{ __('content.export_all_data') }}
             </a>
+            </div>
             <table class="w-full text-sm text-left text-gray-600 dark:text-gray-400">
                 <thead class="text-xs text-gray-500 dark:text-gray-400 uppercase bg-gray-50 dark:bg-gray-700">
                     <tr>
