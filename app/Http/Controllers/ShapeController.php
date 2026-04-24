@@ -27,7 +27,7 @@ class ShapeController extends Controller
 
         // รับค่า search
         $search = $request->get('search');
-        $query = Shape::with($relations)->where('status_id', '!=', 2); 
+        $query = Shape::with($relations)->where('status_id', '!=', 1); 
         // เพิ่ม search functionality
         if ($search) {
             $query->where(function($q) use ($search) {
@@ -63,7 +63,7 @@ class ShapeController extends Controller
 
         }
 
-        $shapes = $query->orderByRaw("CASE WHEN status_id = 2 THEN 1 ELSE 0 END ASC")->latest()->paginate($perPage)->appends($request->query());
+        $shapes = $query->orderByRaw("CASE WHEN status_id = 1 THEN 1 ELSE 0 END ASC")->latest()->paginate($perPage)->appends($request->query());
 
         $data = [
             'shapeTypes' => ShapeType::all(),
