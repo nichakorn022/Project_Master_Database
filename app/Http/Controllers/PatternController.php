@@ -30,7 +30,9 @@ class PatternController extends Controller
 
         // รับค่า search
         $search = $request->get('search');
-        $query = Pattern::with($relations)->where('status_id', '!=', 1); 
+        $query = Pattern::with($relations)->where(function($q) {
+            $q->where('status_id', '!=', 1)->orWhereNull('status_id');
+        });
 
         // เพิ่ม search functionality
         if ($search) {

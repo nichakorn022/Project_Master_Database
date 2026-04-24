@@ -44,13 +44,13 @@ class PageController extends Controller
 
         // เพิ่ม count ของแต่ละ table
         $shapeCount = Shape::count();
-        $activeShapeCount = Shape::where('status_id', '!=', 1)->count(); 
+        $activeShapeCount = Shape::where('status_id', '!=', 1)->orWhereNull('status_id')->count(); 
         $patternCount = Pattern::count();
-        $activePatternCount = Pattern::where('status_id', '!=', 1)->count();
+        $activePatternCount = Pattern::where('status_id', '!=', 1)->orWhereNull('status_id')->count();
         $backstampCount = Backstamp::count();
-        $activeBackstampCount = Backstamp::where('status_id', '!=', 1)->count();
+        $activeBackstampCount = Backstamp::where('status_id', '!=', 1)->orWhereNull('status_id')->count();
         $glazeCount = Glaze::count();
-        $activeGlazeCount = Glaze::where('status_id', '!=', 1)->count();
+        $activeGlazeCount = Glaze::where('status_id', '!=', 1)->orWhereNull('status_id')->count();
         // $userCount = User::count();
 
         // ---------- สร้างข้อมูลสำหรับกราฟ 30 วันล่าสุด ----------

@@ -31,7 +31,9 @@ class GlazeController extends Controller
         // รับค่า search
         $search = $request->get('search');
 
-        $query = Glaze::with($relations)->where('status_id', '!=', 1);
+        $query = Glaze::with($relations)->where(function($q) {
+            $q->where('status_id', '!=', 1)->orWhereNull('status_id');
+        });
         // เพิ่ม search functionality
         if ($search) {
             $query->where(function($q) use ($search) {

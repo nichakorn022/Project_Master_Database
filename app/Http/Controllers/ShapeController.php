@@ -26,8 +26,45 @@ class ShapeController extends Controller
         }
 
         // รับค่า search
+        $defaultShapeType = ShapeType::where('name', 'Porcelain')->value('id');
+        $defaultStatus = Status::where('status', 'Active')->value('id');
+
         $search = $request->get('search');
-        $query = Shape::with($relations)->where('status_id', '!=', 1); 
+        $rawShapeType = $request->query('shape_type_id');
+        $rawStatusId = $request->query('status_id');
+        $shapeType = $rawShapeType === 'all'
+            ? null
+            : ($request->has('shape_type_id') ? $rawShapeType : $defaultShapeType);
+        $shapeCollection = $request->get('shape_collection_id');
+        $itemGroup = $request->get('item_group_id');
+        $statusId = $rawStatusId === 'all'
+            ? null
+            : ($request->has('status_id') ? $rawStatusId : $defaultStatus);
+
+        $query = Shape::with($relations)->where(function($q) {
+            $q->where('status_id', '!=', 1)->orWhereNull('status_id');
+        }); 
+
+        if(!empty($shapeType)) {
+            $query->where('shape_type_id', $shapeType);
+        }
+
+        if(!empty($shapeCollection)) {
+            $query->where('shape_collection_id', $shapeCollection);
+        }
+
+        if(!empty($itemGroup)) {
+            $query->where('item_group_id', $itemGroup);
+        }
+
+        if ($statusId === 'unknown') {
+            $query->whereNull('status_id');
+        } 
+        elseif (!empty($statusId)) {
+            $query->where('status_id', $statusId);
+        }
+
+
         // เพิ่ม search functionality
         if ($search) {
             $query->where(function($q) use ($search) {
@@ -63,11 +100,13 @@ class ShapeController extends Controller
 
         }
 
+
         $shapes = $query->orderByRaw("CASE WHEN status_id = 1 THEN 1 ELSE 0 END ASC")->latest()->paginate($perPage)->appends($request->query());
 
         $data = [
             'shapeTypes' => ShapeType::all(),
             'statuses' => Status::all(),
+            'statusFilters' => Status::where('status', '!=', 'Cancel')->get(),
             'shapeCollections' => ShapeCollection::all(),
             'customers' => Customer::all(),
             'itemGroups' => ItemGroup::all(),
@@ -78,7 +117,7 @@ class ShapeController extends Controller
 
         $permissions = $this->getUserPermissions();
 
-        return view('shape', array_merge($data, compact('shapes', 'perPage', 'search'), $permissions));
+        return view('shape', array_merge($data, compact('shapes', 'perPage', 'search', 'shapeType', 'statusId'), $permissions));
     }
 
     private function handleNewSelectableData(array &$data)

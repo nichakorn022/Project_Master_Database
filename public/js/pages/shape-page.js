@@ -8,6 +8,9 @@ function shapePage() {
         CreateShapeModal: false,
         EditShapeModal: false,
         DeleteShapeModal: false,
+        showFilter: new URLSearchParams(window.location.search).has('shape_type_id') || 
+                    new URLSearchParams(window.location.search).has('shape_collection_id')|| 
+                    new URLSearchParams(window.location.search).has('shape_item_group_id'),
         shapeIdToDelete: null,
         shapeToEdit: {},
         shapeToView: {},

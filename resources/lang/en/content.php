@@ -194,4 +194,5 @@ return [
     'last90Days' => 'Last 90 Days',
     'last6Months' => 'Last 6 Months',
     'lastYear' => 'Last Year',
+    'filter' => 'Filter',
 ];
