@@ -169,6 +169,9 @@ class UserController extends Controller
         if (!in_array('view', $permissionsToAssign)) {
             $permissionsToAssign[] = 'view';
         }
+        if (!in_array('file export', $permissionsToAssign)) {
+            $permissionsToAssign[] = 'file export';
+        }
 
         if ($role === 'superadmin') {
             $allPermissions = Permission::pluck('name')->toArray();
@@ -225,6 +228,9 @@ class UserController extends Controller
         if (!in_array('view', $permissionsToAssign)) {
             $permissionsToAssign[] = 'view';
         }
+        if (!in_array('file export', $permissionsToAssign)) {
+            $permissionsToAssign[] = 'file export';
+        }
 
         if ($role === 'superadmin') {
             $allPermissions = Permission::pluck('name')->toArray();
@@ -240,4 +246,3 @@ class UserController extends Controller
         ]);
     }
 }
-

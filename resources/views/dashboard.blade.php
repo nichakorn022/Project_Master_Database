@@ -28,18 +28,30 @@
         <a href="{{ route('shape.index') }}" class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 flex flex-col items-center hoverScale border border-blue-500 hover:shadow-lg transition-shadow duration-200">
             <span class="text-2xl font-bold text-blue-600 dark:text-blue-400">{{ $shapeCount }}</span>
             <span class="text-lg text-blue-500 dark:text-blue-400 mt-1 uppercase tracking-wider">{{__('sidebar.shapes')}}</span>
+            <span class="text-lg text-blue-500 dark:text-blue-100 mt-1 uppercase tracking-wider">{{ __('active') }}: 
+                <span class="font-bold">{{ $activeShapeCount }}</span>
+            </span>
         </a>
         <a href="{{ route('glaze.index') }}" class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 flex flex-col items-center hoverScale border border-purple-500 hover:shadow-lg transition-shadow duration-200">
             <span class="text-2xl font-bold text-purple-600 dark:text-purple-400">{{ $glazeCount }}</span>
             <span class="text-lg text-purple-500 dark:text-purple-400 mt-1 uppercase tracking-wider">{{__('sidebar.glazes')}}</span>
+            <span class="text-lg text-purple-500 dark:text-purple-100 mt-1 uppercase tracking-wider">{{ __('active') }}: 
+                <span class="font-bold">{{ $activeGlazeCount }}</span>
+            </span>
         </a>       
         <a href="{{ route('pattern.index') }}" class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 flex flex-col items-center hoverScale border border-green-500 hover:shadow-lg transition-shadow duration-200">
             <span class="text-2xl font-bold text-green-600 dark:text-green-400">{{ $patternCount }}</span>
             <span class="text-lg text-green-500 dark:text-green-400 mt-1 uppercase tracking-wider">{{__('sidebar.patterns')}}</span>
+            <span class="text-lg text-green-500 dark:text-green-100 mt-1 uppercase tracking-wider">{{ __('active') }}: 
+                <span class="font-bold">{{ $activePatternCount }}</span>
+            </span>
         </a>        
         <a href="{{ route('backstamp.index') }}" class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 flex flex-col items-center hoverScale border border-yellow-500 hover:shadow-lg transition-shadow duration-200">
             <span class="text-2xl font-bold text-yellow-600 dark:text-yellow-400">{{ $backstampCount }}</span>
             <span class="text-lg text-yellow-500 dark:text-yellow-400 mt-1 uppercase tracking-wider">{{__('sidebar.backstamps')}}</span>
+            <span class="text-lg text-yellow-500 dark:text-yellow-100 mt-1 uppercase tracking-wider">{{ __('active') }}: 
+                <span class="font-bold">{{ $activeBackstampCount }}</span>
+            </span>
         </a>
     </div>
 

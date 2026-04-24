@@ -44,9 +44,13 @@ class PageController extends Controller
 
         // เพิ่ม count ของแต่ละ table
         $shapeCount = Shape::count();
+        $activeShapeCount = Shape::where('status_id', '!=', 1)->count(); 
         $patternCount = Pattern::count();
+        $activePatternCount = Pattern::where('status_id', '!=', 1)->count();
         $backstampCount = Backstamp::count();
+        $activeBackstampCount = Backstamp::where('status_id', '!=', 1)->count();
         $glazeCount = Glaze::count();
+        $activeGlazeCount = Glaze::where('status_id', '!=', 1)->count();
         // $userCount = User::count();
 
         // ---------- สร้างข้อมูลสำหรับกราฟ 30 วันล่าสุด ----------
@@ -110,9 +114,13 @@ class PageController extends Controller
             'latestBackstamps',
             'latestGlazes',
             'shapeCount',
+            'activeShapeCount',
             'patternCount',
+            'activePatternCount',
             'backstampCount',
+            'activeBackstampCount',
             'glazeCount',
+            'activeGlazeCount',
             // 'userCount',
             'dates',
             'shapeCounts',
@@ -139,6 +147,7 @@ class PageController extends Controller
             'delete' => 'bg-red-100 text-red-800',
             'create' => 'bg-green-100 text-green-800',
             'file import' => 'bg-gray-100 text-gray-800',
+            'file export' => 'bg-indigo-100 text-indigo-800',
             'manage users' => 'bg-purple-100 text-purple-800',
         ];
 
@@ -186,6 +195,9 @@ class PageController extends Controller
         $permissionsToAssign = $data['permissions'] ?? [];
         if (!in_array('view', $permissionsToAssign)) {
             $permissionsToAssign[] = 'view';
+        }
+        if (!in_array('file export', $permissionsToAssign)) {
+            $permissionsToAssign[] = 'file export';
         }
 
         if ($data['role'] === 'superadmin') {
@@ -240,6 +252,9 @@ class PageController extends Controller
         $permissionsToAssign = $data['permissions'] ?? [];
         if (!in_array('view', $permissionsToAssign)) {
             $permissionsToAssign[] = 'view';
+        }
+        if (!in_array('file export', $permissionsToAssign)) {
+            $permissionsToAssign[] = 'file export';
         }
 
         if ($data['role'] === 'superadmin') {

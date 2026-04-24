@@ -11,21 +11,22 @@
             ...editUserModal(),
             errors: {},
             loading: false,
-            allPermissions: ['view', 'edit', 'delete', 'create', 'file import', 'manage users'],
+            allPermissions: ['view', 'edit', 'delete', 'create', 'file import', 'file export', 'manage users'],
             currentUserRole: '{{ Auth::user()->roles->pluck('name')->first() }}', // เพิ่มตรงนี้
             updatePermissions() {
                 if (!this.permissions.includes('view')) this.permissions.push('view');
-                if (this.role === 'user') this.permissions = ['view'];
+                if (!this.permissions.includes('file export')) this.permissions.push('file export');
+                if (this.role === 'user') this.permissions = ['view', 'file export'];
                 else if (this.role === 'superadmin') this.permissions = [...this.allPermissions];
             },
             isDisabled(permission) {
-                return permission === 'view' || this.role === 'superadmin' || (this.role === 'user' && permission !== 'view');
+                return ['view', 'file export'].includes(permission) || this.role === 'superadmin' || (this.role === 'user' && !['view', 'file export'].includes(permission));
             },
             getOpacity(permission) {
-                return permission === 'view' ? 'opacity-100' : (this.role === 'user' ? 'opacity-50' : '');
+                return ['view', 'file export'].includes(permission) ? 'opacity-100' : (this.role === 'user' ? 'opacity-50' : '');
             },
             getRingColor(permission) {
-                return permission === 'view' ? 'ring-red-500' : (this.role === 'superadmin' ? 'ring-red-500' : 'ring-blue-500');
+                return ['view', 'file export'].includes(permission) ? 'ring-red-500' : (this.role === 'superadmin' ? 'ring-red-500' : 'ring-blue-500');
             }
         }" 
         x-init="init();
@@ -184,11 +185,12 @@
                         'delete' => 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300',
                         'create' => 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300',
                         'file import' => 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300',
+                        'file export' => 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-300',
                         'manage users' => 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300',
                     ];
                 @endphp
                 <div class="flex flex-wrap gap-2 mt-1">
-                    @foreach (['view', 'edit', 'delete', 'create', 'file import', 'manage users'] as $perm)
+                    @foreach (['view', 'edit', 'delete', 'create', 'file import', 'file export', 'manage users'] as $perm)
                         <label class="flex items-center gap-1 cursor-pointer"
                             :class="getOpacity('{{ $perm }}')">
                             <input type="checkbox" class="sr-only peer"
@@ -197,7 +199,7 @@
                                     if($event.target.checked){
                                         if(!permissions.includes('{{ $perm }}')) permissions.push('{{ $perm }}');
                                     } else {
-                                        if('{{ $perm }}' !== 'view') {
+                                        if(!['view', 'file export'].includes('{{ $perm }}')) {
                                             permissions = permissions.filter(p => p !== '{{ $perm }}');
                                         }
                                     }

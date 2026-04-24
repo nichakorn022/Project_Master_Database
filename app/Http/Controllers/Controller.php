@@ -36,6 +36,7 @@ class Controller extends BaseController
             'hasDelete' => $user->getDirectPermissions()->pluck('name')->contains('delete'),
             'hasManageUser' => $user->getDirectPermissions()->pluck('name')->contains('manage users'),
             'hasFileImport' => $user->getDirectPermissions()->pluck('name')->contains('file import'),
+            'hasFileExport' => $user->getDirectPermissions()->pluck('name')->contains('file export'),
         ];
     }
 }
