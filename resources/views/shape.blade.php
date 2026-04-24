@@ -76,6 +76,9 @@
                             <!-- <th class="px-4 py-3 text-left">
                                 {{__('content.process')}}</th> -->
                             <th class="px-4 py-3 text-left">
+                                {{__('content.customer')}}</th>
+                            </th>
+                            <th class="px-4 py-3 text-right">
                                 {{__('content.updated_by')}}</th>
                             <th class="px-4 py-3 text-end w-[80px]">
                                 {{__('content.action')}}</th>
@@ -88,6 +91,7 @@
                                 $status = $shape->status->status ?? 'Unknown';
                                 $type = $shape->shapeType->name ?? '-';
                                 $process = $shape->process->process_name ?? '-';
+                                $customer = $shape->customer->name ?? '-';
                                 $updatedBy = $shape->updater->name ?? '-';
                                 $statusColor = match ($status) {
                                     'Active' => 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300',
@@ -106,7 +110,8 @@
                                         {{ $status }}
                                     </span>
                                 </td>
-                                <td class="px-4 py-3 text-left">{{ $updatedBy }}</td>
+                                <td class="px-4 py-3">{{ $customer }}</td>
+                                <td class="px-4 py-3 text-right">{{ $updatedBy }}</td>
                                 <td class="px-4 py-3">
                                     <!-- Action Buttons -->
                                     <div class="flex justify-end gap-1">
