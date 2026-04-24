@@ -75,7 +75,7 @@
                                 {{__('content.status')}}</th>
                             <!-- <th class="px-4 py-3 text-left">
                                 {{__('content.process')}}</th> -->
-                            <th class="px-4 py-3 text-left">
+                            <th class="px-4 py-3 text-right">
                                 {{__('content.customer')}}</th>
                             </th>
                             <th class="px-4 py-3 text-right">
@@ -110,7 +110,7 @@
                                         {{ $status }}
                                     </span>
                                 </td>
-                                <td class="px-4 py-3">{{ $customer }}</td>
+                                <td class="px-4 py-3 text-right">{{ $customer }}</td>
                                 <td class="px-4 py-3 text-right">{{ $updatedBy }}</td>
                                 <td class="px-4 py-3">
                                     <!-- Action Buttons -->

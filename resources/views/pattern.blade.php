@@ -62,7 +62,8 @@
                             <th class="px-4 py-3 text-left">{{ __('content.pattern_code') }}</th>
                             <th class="px-4 py-3 text-left">{{ __('content.description') }}</th>
                             <th class="px-4 py-3 text-center">{{ __('content.exclusive') }}</th>
-                            <th class="px-4 py-3 text-left">{{ __('content.status') }}</th>
+                            <th class="px-4 py-3 text-center">{{ __('content.status') }}</th>
+                            <th class="px-4 py-3 text-right">{{ __('content.customer') }}</th>
                             <th class="px-4 py-3 text-right">{{ __('content.updated_by') }}</th>
                             <th class="px-4 py-3 text-end w-[80px]">{{ __('content.action') }}</th>
                         </tr>
@@ -77,6 +78,7 @@
                                     'Cancel' => 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300',
                                     default => 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300',
                                 };
+                                $customer = $pattern->customer->name ?? '-';
                             @endphp
 
                             <tr class="dark:text-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 bg-white border-b border-gray-200 hover:bg-gray-50">
@@ -90,11 +92,12 @@
                                     @endif
                                 </td>                                
                                 <!-- Status -->
-                                <td class="px-4 py-3">
+                                <td class="px-4 py-3 text-center">
                                     <span class="{{ $statusColor }} px-2 py-1 rounded-full text-xs font-semibold">
                                         {{ $status }}
                                     </span>
                                 </td>
+                                <td class="px-4 py-3 text-right">{{ $customer }}</td>
 
                                 <!-- UPDATED BY -->
                                 <td class="px-4 py-3 text-right ">{{ $pattern->updater->name ?? 'System' }}</td>

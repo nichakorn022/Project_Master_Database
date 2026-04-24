@@ -182,6 +182,7 @@ MAX_UPLOAD_SIZE=2048
 ## 👥 Team
 
 - **Developer**: [Decode357](https://github.com/Decode357)
+- **Look-ka-jog**: [nichakorn022](https://github.com/nichakorn022)
 - **Project Type**: Master Data Management System
 - **Framework**: Laravel 10.x
 

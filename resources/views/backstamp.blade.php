@@ -62,7 +62,8 @@
                             <th class="px-4 py-3 text-left">{{ __('content.backstamp_code') }}</th>
                             <th class="px-4 py-3 text-left">{{ __('content.description') }}</th>
                             <th class="px-4 py-3 text-center">{{ __('content.organic') }}</th>
-                            <th class="px-4 py-3 text-left">{{ __('content.status') }}</th>
+                            <th class="px-4 py-3 text-center">{{ __('content.status') }}</th>
+                            <th class="px-4 py-3 text-right">{{ __('content.customer') }}</th>
                             <th class="px-4 py-3 text-right">{{ __('content.updated_by') }}</th>
                             <th class="px-4 py-3 text-right w-[80px]">{{ __('content.action') }}</th>
                         </tr>
@@ -87,11 +88,12 @@
                                     <span class="material-symbols-outlined text-gray-400">radio_button_unchecked</span>
                                 @endif
                             </td>
-                            <td class="px-4 py-3">
+                            <td class="px-4 py-3 text-center">
                                 <span class="{{ $statusColor }} px-2 py-1 rounded-full text-xs font-semibold">
                                     {{ $status }}
                                 </span>
                             </td>
+                            <td class ="px-4 py-3 text-right">{{ $backstamp->customer->name ?? '-' }}</td>
                             <td class="px-4 py-3 text-right">{{ $backstamp->updater->name ?? '-' }}</td>
                             <td class="px-4 py-3 text-right">
                                 <div class="flex justify-end gap-1">
