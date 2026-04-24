@@ -28,7 +28,7 @@ class BackstampController extends Controller
 
         // รับค่า search
         $search = $request->get('search');
-            $query = Backstamp::with($relations);
+        $query = Backstamp::with($relations)->where('status_id', '!=', 1);
         // เพิ่ม search functionality 
         if ($search) {
             $query->where(function($q) use ($search) {
@@ -48,7 +48,7 @@ class BackstampController extends Controller
             });
         }
 
-        $backstamps = $query->latest()->paginate($perPage)->appends($request->query());
+        $backstamps = $query->orderByRaw("CASE WHEN status_id != 1 THEN 1 ELSE 0 END ASC")->latest()->paginate($perPage)->appends($request->query());
 
         $data = [
             'statuses'   => Status::all(),

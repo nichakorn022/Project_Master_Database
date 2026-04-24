@@ -30,7 +30,7 @@ class PatternController extends Controller
 
         // รับค่า search
         $search = $request->get('search');
-        $query = Pattern::with($relations);
+        $query = Pattern::with($relations)->where('status_id', '!=', 1); 
 
         // เพิ่ม search functionality
         if ($search) {
@@ -56,7 +56,8 @@ class PatternController extends Controller
         }
 
 
-        $patterns = $query->latest()->paginate($perPage)->appends($request->query());
+        $patterns = $query->orderByRaw("CASE WHEN status_id != 1 THEN 1 ELSE 0 END ASC")->latest()->paginate($perPage)->appends($request->query());
+
         $data = [
             'statuses'   => Status::all(),
             'designers'  => Designer::all(),
