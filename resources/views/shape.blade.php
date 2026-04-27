@@ -229,6 +229,7 @@
                                 $status = $shape->status->status ?? 'Unknown';
                                 $type = $shape->shapeType->name ?? '-';
                                 $customer = $shape->customer->name ?? '-';
+                                $process = $shape->process->process_name ?? '-';
                                 $updatedBy = $shape->updater->name ?? '-';
                                 $statusColor = match ($status) {
                                     'Active' => 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300',
