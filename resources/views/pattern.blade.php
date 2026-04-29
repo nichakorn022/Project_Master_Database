@@ -58,7 +58,7 @@
                 </div>
 
                 <div x-show="showFilter" x-cloak class="border border-gray-200 rounded-lg p-4 bg-gray-50 dark:bg-gray-700/40 dark:border-gray-600">
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
                         <div>
                             <label for="customer_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('content.customer') }}</label>
                             <select id="customer_id" name="customer_id" onchange="this.form.submit()"

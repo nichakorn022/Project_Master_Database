@@ -80,7 +80,7 @@
                     x-cloak
                     class="border border-gray-200 rounded-lg p-4 bg-gray-50 dark:bg-gray-700/40 dark:border-gray-600"
                 >
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
                         <div>
                             <label for="shape_type_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 {{ __('content.type') }}
@@ -157,12 +157,31 @@
                                 @endforeach                       
                             </select>
                         </div>
+
+                        <div>
+                            <label for="process_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                {{ __('content.process') }}
+                            </label>
+                            <select
+                                id="process_id"
+                                name="process_id"
+                                onchange="this.form.submit()"
+                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+                                >
+                                <option value="all" {{ empty($processId) ? 'selected' : '' }}>All</option>
+                                @foreach ($processes as $process)
+                                    <option value="{{ $process->id }}" {{ (string) $processId === (string) $process->id ? 'selected' : '' }}>
+                                        {{ $process->process_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
             </form>
         </div>
         <!-- Tag Filter -->
-        @if ($shapeType || request('shape_collection_id') || request('item_group_id') || $statusId)
+        @if ($shapeType || request('shape_collection_id') || request('item_group_id') || $statusId || $processes)
             <div class="flex flex-wrap gap-2 mb-3">
                 <span class="px-3 py-1 text-sm rounded-full bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300">
                     {{ __('content.filter') }}:
@@ -202,6 +221,16 @@
                         class="inline-flex items-center gap-1 px-3 py-1 text-sm rounded-full bg-yellow-100 text-yellow-800 hover:bg-yellow-200 dark:bg-yellow-900 dark:text-yellow-300 dark:hover:bg-yellow-800"
                     >
                         <span>{{ $statusId === 'unknown' ? 'Unknown' : ($statuses->firstWhere('id', $statusId)->status ?? 'Unknown') }}</span>
+                        <span class="material-symbols-outlined text-[8px]">close</span>
+                    </a>
+                @endif
+
+                @if ($processId)
+                    <a
+                        href="{{ route('shape.index', array_merge(request()->except('process_id', 'page'), ['process_id' => 'all', 'per_page' => request('per_page', 10)])) }}"
+                        class="inline-flex items-center gap-1 px-3 py-1 text-sm rounded-full bg-purple-100 text-purple-800 hover:bg-purple-200 dark:bg-purple-900 dark:text-purple-300 dark:hover:bg-purple-800"
+                    >
+                        <span>{{ $processes->firstWhere('id', $processId)->process_name ?? 'Unknown' }}</span>
                         <span class="material-symbols-outlined text-[8px]">close</span>
                     </a>
                 @endif

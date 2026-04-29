@@ -13,7 +13,7 @@ class ShapeController extends Controller
     public function shapeindex(Request $request)
     {
         $relations = [
-            'shapeType', 'status', 'shapeCollection', 'customer',
+            'shapeType', 'status', 'process', 'shapeCollection', 'customer',
             'itemGroup', 'designer', 'requestor', 'updater','images'
         ];
 
@@ -37,9 +37,11 @@ class ShapeController extends Controller
             : ($request->has('shape_type_id') ? $rawShapeType : $defaultShapeType);
         $shapeCollection = $request->get('shape_collection_id');
         $itemGroup = $request->get('item_group_id');
+        $rawProcessId = $request->query('process_id');
         $statusId = $rawStatusId === 'all'
             ? null
             : ($request->has('status_id') ? $rawStatusId : $defaultStatus);
+        $processId = $rawProcessId === 'all' ? null : $rawProcessId;
 
         $query = Shape::with($relations)->where(function($q) {
             $q->where('status_id', '!=', 1)->orWhereNull('status_id');
@@ -55,6 +57,10 @@ class ShapeController extends Controller
 
         if(!empty($itemGroup)) {
             $query->where('item_group_id', $itemGroup);
+        }
+
+        if (!empty($processId)) {
+            $query->where('process_id', $processId);
         }
 
         if ($statusId === 'unknown') {
@@ -117,7 +123,7 @@ class ShapeController extends Controller
 
         $permissions = $this->getUserPermissions();
 
-        return view('shape', array_merge($data, compact('shapes', 'perPage', 'search', 'shapeType', 'statusId'), $permissions));
+        return view('shape', array_merge($data, compact('shapes', 'perPage', 'search', 'shapeType', 'statusId', 'processId'), $permissions));
     }
 
     private function handleNewSelectableData(array &$data)

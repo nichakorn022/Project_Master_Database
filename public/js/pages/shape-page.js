@@ -3,14 +3,18 @@
  */
 
 function shapePage() {
+    const searchParams = new URLSearchParams(window.location.search);
+
     return {
         ShapeDetailModal: false,
         CreateShapeModal: false,
         EditShapeModal: false,
         DeleteShapeModal: false,
-        showFilter: new URLSearchParams(window.location.search).has('shape_type_id') || 
-                    new URLSearchParams(window.location.search).has('shape_collection_id')|| 
-                    new URLSearchParams(window.location.search).has('shape_item_group_id'),
+        showFilter: searchParams.has('shape_type_id') ||
+                    searchParams.has('shape_collection_id') ||
+                    searchParams.has('item_group_id') ||
+                    searchParams.has('process_id') ||
+                    searchParams.has('status_id'),
         shapeIdToDelete: null,
         shapeToEdit: {},
         shapeToView: {},

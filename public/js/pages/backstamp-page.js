@@ -11,7 +11,7 @@ function backstampPage() {
         EditBackstampModal: false,
         DeleteBackstampModal: false,
         backstampIdToDelete: null,
-        showTFilter: searchParams.has('customer_id') ||
+        showFilter: searchParams.has('customer_id') ||
                     searchParams.has('requestor_id') ||
                     searchParams.has('organic') ||
                     searchParams.has('status_id'),  
