@@ -4,7 +4,7 @@
     @click.self="BackstampDetailModal = false" style="display: none;"
     x-data="{ 
         zoomImage: false, 
-        activeTab: 'info',
+        activeTab: 'customer_details',
         currentImageIndex: 0,
         get currentImage() {
             return this.backstampToView?.images && this.backstampToView.images.length > 0 
@@ -85,6 +85,7 @@
                             </div>
                             
                             <!-- Backstamp Name -->
+                            <template x-if="backstampToView?.name">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-orange-600 dark:text-orange-400">border_color</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -92,6 +93,7 @@
                                 </label>
                                 <span class="text-gray-900 dark:text-gray-100" x-text="backstampToView?.name || '-'"></span>
                             </div>
+                            </template>
 
                             <!-- Organic -->
                             <div class="flex flex-row gap-2 items-center">
@@ -174,6 +176,7 @@
                             </div>
 
                             <!-- Approval Date -->
+                            <template x-if="backstampToView?.approval_date">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-green-600 dark:text-green-400">Order_Approve</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -181,10 +184,12 @@
                                 </label>
                                 <span class="text-gray-900 dark:text-gray-100" x-text="backstampToView?.approval_date ? new Date(backstampToView.approval_date).toLocaleDateString('th-TH') : '-'"></span>
                             </div>
+                            </template>
 
                             <hr class="mt-3 mb-2 border-gray-300 dark:border-gray-600">
                             
                             <!-- Customer -->
+                            <template x-if="backstampToView?.customer">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-blue-600 dark:text-blue-400">business</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -194,8 +199,10 @@
                                     x-text="backstampToView?.customer?.name || '-'">
                                 </span>
                             </div>
+                            </template>
                             
                             <!-- Requestor -->
+                            <template x-if="backstampToView?.requestor">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-red-600 dark:text-red-400">person_raised_hand</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -203,10 +210,12 @@
                                 </label>
                                 <span class="text-gray-900 dark:text-gray-100" x-text="backstampToView?.requestor?.name || '-'"></span>
                             </div>
+                            </template>
                         </div>
                         <!-- Customer Detail -->
                         <div x-show="activeTab === 'customer_details'" class="h-full overflow-y-auto overflow-x-visible flex flex-col gap-1 font-lg text-lg">
                             <!-- Code -->
+                            <template x-if="backstampToView?.customer">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-blue-600 dark:text-blue-400">Qr_Code_2</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -215,7 +224,9 @@
                                 <span class="text-gray-900 dark:text-gray-100" x-text="backstampToView?.customer?.code || '-'"></span>
                             </div>
                             <hr class=" border-gray-300 dark:border-gray-600">
+                            </template>
                             <!-- Name -->
+                            <template x-if="backstampToView?.customer">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-blue-600 dark:text-blue-400">Signature</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -224,7 +235,9 @@
                                 <span class="text-gray-900 dark:text-gray-100" x-text="backstampToView?.customer?.name || '-'"></span>
                             </div>
                             <hr class=" border-gray-300 dark:border-gray-600">
+                            </template>
                             <!-- Email -->
+                            <template x-if="backstampToView?.customer?.email">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-blue-600 dark:text-blue-400">Mail</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -233,7 +246,9 @@
                                 <span class="text-gray-900 dark:text-gray-100" x-text="backstampToView?.customer?.email || '-'"></span>
                             </div>
                             <hr class=" border-gray-300 dark:border-gray-600">
+                            </template>
                             <!-- Phone -->
+                            <template x-if="backstampToView?.customer?.phone">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-blue-600 dark:text-blue-400">call</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -242,6 +257,14 @@
                                 <span class="text-gray-900 dark:text-gray-100" x-text="backstampToView?.customer?.phone || '-'"></span>
                             </div>
                             <hr class=" border-gray-300 dark:border-gray-600">
+                            </template>
+
+                            <template x-if="!backstampToView?.customer?.code && !backstampToView?.customer?.name && !backstampToView?.customer?.email && !backstampToView?.customer?.phone">
+                                <div class="text-gray-500 dark:text-gray-400 italic">
+                                    {{ __('content.no_data') }}
+                                </div>
+                            </template>
+
                         </div>
                     </div>
                 </div>

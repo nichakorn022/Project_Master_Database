@@ -96,6 +96,7 @@
                             </div>
                             
                             <!-- Description (TH) -->
+                            <template x-if="shapeToView?.item_description_thai">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-green-600 dark:text-green-400">translate</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -103,8 +104,10 @@
                                 </label>
                                 <span class="text-gray-900 dark:text-gray-100 " x-text="shapeToView?.item_description_thai || '-'"></span>
                             </div>
+                            </template>
                             
                             <!-- Description (EN) -->
+                            <template x-if="shapeToView?.item_description_eng">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-purple-600 dark:text-purple-400">language</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -112,8 +115,10 @@
                                 </label>
                                 <span class="text-gray-900 dark:text-gray-100" x-text="shapeToView?.item_description_eng || '-'"></span>
                             </div>
+                            </template>
                             
                             <!-- Collection Code -->
+                            <template x-if="shapeToView?.shape_collection">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-pink-600 dark:text-pink-400">qr_code</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -121,8 +126,10 @@
                                 </label>
                                 <span class="text-gray-900 dark:text-gray-100" x-text="shapeToView?.shape_collection?.collection_code || '-'"></span>
                             </div>
+                            </template>
                             
                             <!-- Collection Name -->
+                            <template x-if="shapeToView?.shape_collection">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-pink-600 dark:text-pink-400">folder_special</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -130,8 +137,10 @@
                                 </label>
                                 <span class="text-gray-900 dark:text-gray-100" x-text="shapeToView?.shape_collection?.collection_name || '-'"></span>
                             </div>
+                            </template>
                             
                             <!-- Type -->
+                            <template x-if="shapeToView?.shape_type">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-indigo-600 dark:text-indigo-400">category</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -139,8 +148,10 @@
                                 </label>
                                 <span class="text-gray-900 dark:text-gray-100" x-text="shapeToView?.shape_type?.name || '-'"></span>
                             </div>
+                            </template>
                             
                             <!-- Group -->
+                            <template x-if="shapeToView?.item_group">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-teal-600 dark:text-teal-400">workspaces</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -148,8 +159,10 @@
                                 </label>
                                 <span class="text-gray-900 dark:text-gray-100" x-text="shapeToView?.item_group?.item_group_name || '-'"></span>
                             </div>
+                            </template>
 
                             <!-- Approval Date -->
+                            <template x-if="shapeToView?.approval_date">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-green-600 dark:text-green-400">Order_Approve</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -157,10 +170,12 @@
                                 </label>
                                 <span class="text-gray-900 dark:text-gray-100" x-text="shapeToView?.approval_date ? new Date(shapeToView.approval_date).toLocaleDateString('th-TH') : '-'"></span>
                             </div>
+                            </template>
 
                             <hr class="mt-3 mb-2 border-gray-300 dark:border-gray-600">
                             
                             <!-- Customer -->
+                            <template x-if="shapeToView?.customer">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-blue-600 dark:text-blue-400">business</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -170,8 +185,10 @@
                                     x-text="shapeToView?.customer?.name || '-'">
                                 </span>
                             </div>
+                            </template>
                             
                             <!-- Designer -->
+                            <template x-if="shapeToView?.designer">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-orange-600 dark:text-orange-400">palette</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -179,8 +196,10 @@
                                 </label>
                                 <span class="text-gray-900 dark:text-gray-100" x-text="shapeToView?.designer?.designer_name || '-'"></span>
                             </div>
+                            </template>
                             
                             <!-- Requestor -->
+                            <template x-if="shapeToView?.requestor">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-red-600 dark:text-red-400">person_raised_hand</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -188,6 +207,7 @@
                                 </label>
                                 <span class="text-gray-900 dark:text-gray-100" x-text="shapeToView?.requestor?.name || '-'"></span>
                             </div>
+                            </template>
                         </div>
 
                         <!-- Specification Tab -->
@@ -197,6 +217,7 @@
                                 <!-- Left Side - Specification Data -->
                                 <div class="flex flex-col gap-1 font-lg text-lg">
                                     <!-- Volume -->
+                                    <template x-if="shapeToView?.volume">
                                     <div class="flex flex-col items-start">
                                         <div class="flex flex-row gap-1 items-center">
                                             <span class="material-symbols-outlined text-base text-blue-600 dark:text-blue-400">water_drop</span>
@@ -210,8 +231,10 @@
                                         </label>
                                     </div>          
                                     <hr class="border-gray-300 dark:border-gray-600">
+                                    </template>
                                     
                                     <!-- Weight -->
+                                    <template x-if="shapeToView?.weight">
                                     <div class="flex flex-col items-start">
                                         <div class="flex flex-row gap-1 items-center">
                                             <span class="material-symbols-outlined text-base text-purple-600 dark:text-purple-400">scale</span>
@@ -225,8 +248,10 @@
                                         </label>
                                     </div>
                                     <hr class="border-gray-300 dark:border-gray-600">
+                                    </template>
                                     
                                     <!-- Long Diameter -->
+                                    <template x-if="shapeToView?.long_diameter">
                                     <div class="flex flex-col items-start">
                                         <div class="flex flex-row gap-1 items-center">
                                             <span class="material-symbols-outlined text-base text-green-600 dark:text-green-400">straighten</span>
@@ -240,8 +265,10 @@
                                         </label>
                                     </div>
                                     <hr class="border-gray-300 dark:border-gray-600">
+                                    </template>
                                     
                                     <!-- Short Diameter -->
+                                    <template x-if="shapeToView?.short_diameter">
                                     <div class="flex flex-col items-start">
                                         <div class="flex flex-row gap-1 items-center">
                                             <span class="material-symbols-outlined text-base text-orange-600 dark:text-orange-400">width</span>
@@ -255,8 +282,10 @@
                                         </label>
                                     </div>
                                     <hr class="border-gray-300 dark:border-gray-600">
+                                    </template>
                                     
                                     <!-- Height Long -->
+                                    <template x-if="shapeToView?.height_long">
                                     <div class="flex flex-col items-start">
                                         <div class="flex flex-row gap-1 items-center">
                                             <span class="material-symbols-outlined text-base text-red-600 dark:text-red-400">height</span>
@@ -270,8 +299,10 @@
                                         </label>
                                     </div>
                                     <hr class="border-gray-300 dark:border-gray-600">
+                                    </template>
                                     
                                     <!-- Height Short -->
+                                    <template x-if="shapeToView?.height_short">
                                     <div class="flex flex-col items-start">
                                         <div class="flex flex-row gap-1 items-center">
                                             <span class="material-symbols-outlined text-base text-pink-600 dark:text-pink-400">expand</span>
@@ -285,8 +316,10 @@
                                         </label>
                                     </div>
                                     <hr class="border-gray-300 dark:border-gray-600">
+                                    </template>
                                     
                                     <!-- Body -->
+                                    <template x-if="shapeToView?.body">
                                     <div class="flex flex-col items-start">
                                         <div class="flex flex-row gap-1 items-center">
                                             <span class="material-symbols-outlined text-base text-teal-600 dark:text-teal-400">width_full</span>
@@ -300,6 +333,14 @@
                                         </label>
                                     </div>
                                     <hr class="border-gray-300 dark:border-gray-600">
+                                    </template>
+
+                                    <template x-if="!shapeToView?.volume && !shapeToView?.weight && !shapeToView?.long_diameter && !shapeToView?.short_diameter && !shapeToView?.height_long && !shapeToView?.height_short && !shapeToView?.body">
+                                        <div class="text-gray-500 dark:text-gray-400 italic">
+                                            {{ __('content.no_data') }}
+                                        </div>
+                                    </template>
+
                                 </div>
                                 
                                 <!-- Right Side - Specification Image -->
@@ -332,6 +373,7 @@
                         <!-- Customer Detail -->
                         <div x-show="activeTab === 'customer_details'" class="h-full overflow-y-auto overflow-x-visible flex flex-col gap-1 font-lg text-lg">
                             <!-- Code -->
+                            <template x-if="shapeToView?.customer?.code">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-blue-600 dark:text-blue-400">Qr_Code_2</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -340,7 +382,9 @@
                                 <span class="text-gray-900 dark:text-gray-100" x-text="shapeToView?.customer?.code || '-'"></span>
                             </div>
                             <hr class=" border-gray-300 dark:border-gray-600">
+                            </template>
                             <!-- Name -->
+                            <template x-if="shapeToView?.customer?.name">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-blue-600 dark:text-blue-400">Signature</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -349,7 +393,9 @@
                                 <span class="text-gray-900 dark:text-gray-100" x-text="shapeToView?.customer?.name || '-'"></span>
                             </div>
                             <hr class=" border-gray-300 dark:border-gray-600">
+                            </template>
                             <!-- Email -->
+                            <template x-if="shapeToView?.customer?.email">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-blue-600 dark:text-blue-400">Mail</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -358,7 +404,9 @@
                                 <span class="text-gray-900 dark:text-gray-100" x-text="shapeToView?.customer?.email || '-'"></span>
                             </div>
                             <hr class=" border-gray-300 dark:border-gray-600">
+                            </template>
                             <!-- Phone -->
+                            <template x-if="shapeToView?.customer?.phone">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-blue-600 dark:text-blue-400">call</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -367,6 +415,13 @@
                                 <span class="text-gray-900 dark:text-gray-100" x-text="shapeToView?.customer?.phone || '-'"></span>
                             </div>
                             <hr class=" border-gray-300 dark:border-gray-600">
+                            </template>
+
+                            <template x-if="!shapeToView?.customer?.code && !shapeToView?.customer?.name && !shapeToView?.customer?.email && !shapeToView?.customer?.phone">
+                                <div class="text-gray-500 dark:text-gray-400 italic">
+                                    {{ __('content.no_data') }}
+                                </div>
+                            </template>
                         </div>
                     </div>
                 </div>

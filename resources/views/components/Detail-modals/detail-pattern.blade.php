@@ -94,6 +94,7 @@
                             </div>
 
                             <!-- Pattern Name -->
+                            <template x-if="patternToView?.pattern_name">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-green-600 dark:text-green-400">border_color</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -101,6 +102,7 @@
                                 </label>
                                 <span class="text-gray-900 dark:text-gray-100" x-text="patternToView?.pattern_name || '-'"></span>
                             </div>
+                            </template>
 
                             <!-- Exclusive -->
                             <div class="flex flex-row gap-2 items-center">
@@ -167,6 +169,7 @@
                             </div>
 
                             <!-- Approval Date -->
+                            <template x-if="patternToView?.approval_date">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-green-600 dark:text-green-400">Order_Approve</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -174,10 +177,12 @@
                                 </label>
                                 <span class="text-gray-900 dark:text-gray-100" x-text="patternToView?.approval_date ? new Date(patternToView.approval_date).toLocaleDateString('th-TH') : '-'"></span>
                             </div>
+                            </template>
 
                             <hr class="mt-3 mb-2 border-gray-300 dark:border-gray-600">
                             
                             <!-- Customer -->
+                            <template x-if="patternToView?.customer">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-blue-600 dark:text-blue-400">business</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -187,8 +192,10 @@
                                     x-text="patternToView?.customer?.name || '-'">
                                 </span>
                             </div>
+                            </template>
                             
                             <!-- Designer -->
+                            <template x-if="patternToView?.designer">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-orange-600 dark:text-orange-400">palette</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -196,8 +203,10 @@
                                 </label>
                                 <span class="text-gray-900 dark:text-gray-100" x-text="patternToView?.designer?.designer_name || '-'"></span>
                             </div>
+                            </template>
                             
                             <!-- Requestor -->
+                            <template x-if="patternToView?.requestor">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-red-600 dark:text-red-400">person_raised_hand</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -205,10 +214,12 @@
                                 </label>
                                 <span class="text-gray-900 dark:text-gray-100" x-text="patternToView?.requestor?.name || '-'"></span>
                             </div>
+                            </template>
                         </div>
                         <!-- Customer Detail -->
                         <div x-show="activeTab === 'customer_details'" class="h-full overflow-y-auto overflow-x-visible flex flex-col gap-1 font-lg text-lg">
                             <!-- Code -->
+                            <template x-if="patternToView?.customer?.code">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-blue-600 dark:text-blue-400">Qr_Code_2</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -217,7 +228,9 @@
                                 <span class="text-gray-900 dark:text-gray-100" x-text="patternToView?.customer?.code || '-'"></span>
                             </div>
                             <hr class=" border-gray-300 dark:border-gray-600">
+                            </template>
                             <!-- Name -->
+                            <template x-if="patternToView?.customer?.name">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-blue-600 dark:text-blue-400">Signature</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -226,7 +239,9 @@
                                 <span class="text-gray-900 dark:text-gray-100" x-text="patternToView?.customer?.name || '-'"></span>
                             </div>
                             <hr class=" border-gray-300 dark:border-gray-600">
+                            </template>
                             <!-- Email -->
+                            <template x-if="patternToView?.customer?.email">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-blue-600 dark:text-blue-400">Mail</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -235,7 +250,9 @@
                                 <span class="text-gray-900 dark:text-gray-100" x-text="patternToView?.customer?.email || '-'"></span>
                             </div>
                             <hr class=" border-gray-300 dark:border-gray-600">
+                            </template>
                             <!-- Phone -->
+                            <template x-if="patternToView?.customer?.phone">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-blue-600 dark:text-blue-400">call</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -244,6 +261,13 @@
                                 <span class="text-gray-900 dark:text-gray-100" x-text="patternToView?.customer?.phone || '-'"></span>
                             </div>
                             <hr class=" border-gray-300 dark:border-gray-600">
+                            </template>
+
+                            <template x-if="!patternToView?.customer?.code && !patternToView?.customer?.name && !patternToView?.customer?.email && !patternToView?.customer?.phone">
+                                <div class="text-gray-500 dark:text-gray-400 italic">
+                                    {{ __('content.no_data') }}
+                                </div>
+                             </template>
                         </div>
                     </div>
                 </div>

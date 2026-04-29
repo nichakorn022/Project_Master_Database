@@ -79,6 +79,7 @@
                             </div>
                             
                             <!-- Temperature -->
+                            <template x-if="glazeToView?.fire_temp">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-red-600 dark:text-red-400">device_thermostat</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -88,10 +89,11 @@
                                     class="text-gray-900 dark:text-gray-100"
                                     x-text="glazeToView?.fire_temp ? glazeToView.fire_temp + ' {{ __('content.°C_full') }}' : '-'">
                                 </span>
-
                             </div>
+                            </template>
 
                             <!-- Approval Date -->
+                            <template x-if="glazeToView?.approval_date">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-green-600 dark:text-green-400">Order_Approve</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -99,10 +101,12 @@
                                 </label>
                                 <span class="text-gray-900 dark:text-gray-100" x-text="glazeToView?.approval_date ? new Date(glazeToView.approval_date).toLocaleDateString('th-TH') : '-'"></span>
                             </div>
+                            </template>
                             
                             <hr class="my-3 border-gray-300 dark:border-gray-600">
 
                             <!-- Glaze Inside -->
+                            <template x-if="glazeToView?.glaze_inside">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-indigo-600 dark:text-indigo-400">qr_code</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -110,6 +114,7 @@
                                 </label>
                                 <span class="text-gray-900 dark:text-gray-100" x-text="glazeToView?.glaze_inside?.glaze_inside_code || '-'"></span>
                             </div>
+                            </template>
                             
                             <!-- Inside Color -->
                             <div class="flex flex-row gap-2 items-center">
@@ -136,6 +141,7 @@
                             </div>
 
                             <!-- Glaze Outside -->
+                            <template x-if="glazeToView?.glaze_outer">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-pink-600 dark:text-pink-400">qr_code</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -143,6 +149,7 @@
                                 </label>
                                 <span class="text-gray-900 dark:text-gray-100" x-text="glazeToView?.glaze_outer?.glaze_outer_code || '-'"></span>
                             </div>
+                            </template>
 
                             <!-- Outside Color -->
                             <div class="flex flex-row gap-2 items-center">
@@ -171,6 +178,7 @@
                             <hr class="my-3 border-gray-300 dark:border-gray-600">
 
                             <!-- Effect Code-->
+                            <template x-if="glazeToView?.effect">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-blue-600 dark:text-blue-400">qr_code</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -178,8 +186,10 @@
                                 </label>
                                 <span class="text-gray-900 dark:text-gray-100" x-text="glazeToView?.effect?.effect_code || '-'"></span>
                             </div>
+                            </template>
 
                             <!-- Effect Name -->
+                            <template x-if="glazeToView?.effect">
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-blue-600 dark:text-blue-400">auto_awesome</span>
                                 <label class="text-gray-700 dark:text-gray-300">
@@ -187,6 +197,7 @@
                                 </label>
                                 <span class="text-gray-900 dark:text-gray-100" x-text="glazeToView?.effect?.effect_name || '-'"></span>
                             </div>
+                            </template>
 
                             <!-- Effect Color -->
                             <div class="flex flex-row gap-2 items-center">
