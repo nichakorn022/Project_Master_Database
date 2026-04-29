@@ -3,11 +3,18 @@
  */
 
 function patternPage() {
+    const searchParams = new URLSearchParams(window.location.search);
+
     return {
         PatternDetailModal: false,
         CreatePatternModal: false,
         EditPatternModal: false,
         DeletePatternModal: false,
+        showFilter: searchParams.has('customer_id') ||
+                    searchParams.has('designer_id') ||
+                    searchParams.has('requestor_id') ||
+                    searchParams.has('status_id') ||
+                    searchParams.has('exclusive'),
         patternIdToDelete: null,
         patternToEdit: {},
         patternToView: {},

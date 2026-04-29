@@ -30,10 +30,29 @@ class GlazeController extends Controller
 
         // รับค่า search
         $search = $request->get('search');
+        $effectId = $request->query('effect_id');
+        $glazeInsideId = $request->query('glaze_inside_id');
+        $glazeOuterId = $request->query('glaze_outer_id');
+        $rawStatusId = $request->query('status_id');
+        $statusId = $rawStatusId === 'all' ? null : $rawStatusId;
 
         $query = Glaze::with($relations)->where(function($q) {
             $q->where('status_id', '!=', 1)->orWhereNull('status_id');
         });
+        if (!empty($effectId)) {
+            $query->where('effect_id', $effectId);
+        }
+        if (!empty($glazeInsideId)) {
+            $query->where('glaze_inside_id', $glazeInsideId);
+        }
+        if (!empty($glazeOuterId)) {
+            $query->where('glaze_outer_id', $glazeOuterId);
+        }
+        if ($statusId === 'unknown') {
+            $query->whereNull('status_id');
+        } elseif (!empty($statusId)) {
+            $query->where('status_id', $statusId);
+        }
         // เพิ่ม search functionality
         if ($search) {
             $query->where(function($q) use ($search) {
@@ -61,12 +80,21 @@ class GlazeController extends Controller
 
         $data = [
             'statuses'     => Status::all(),
+            'statusFilters' => Status::where('status', '!=', 'Cancel')->get(),
             'effects'      => Effect::all(),
             'glazeOuters'  => GlazeOuter::all(),
             'glazeInsides' => GlazeInside::all(),
         ];
         $permissions = $this->getUserPermissions();
-        return view('glaze', array_merge($data, compact('glazes'), $permissions));
+        return view('glaze', array_merge($data, compact(
+            'glazes',
+            'perPage',
+            'search',
+            'effectId',
+            'glazeInsideId',
+            'glazeOuterId',
+            'statusId'
+        ), $permissions));
     }
 
     private function rules($id = null)

@@ -30,9 +30,39 @@ class PatternController extends Controller
 
         // รับค่า search
         $search = $request->get('search');
+        $customerId = $request->query('customer_id');
+        $designerId = $request->query('designer_id');
+        $requestorId = $request->query('requestor_id');
+        $exclusive = $request->query('exclusive');
+        $defaultStatus = Status::where('status', 'Active')->value('id');
+        $rawStatusId = $request->query('status_id');
+        $statusId = $rawStatusId === 'all' 
+                    ? null 
+                    : ($request->has('status_id') ? $rawStatusId : $defaultStatus);
         $query = Pattern::with($relations)->where(function($q) {
             $q->where('status_id', '!=', 1)->orWhereNull('status_id');
         });
+        if (!empty($customerId)) {
+            $query->where('customer_id', $customerId);
+        }
+        if (!empty($designerId)) {
+            $query->where('designer_id', $designerId);
+        }
+        if (!empty($requestorId)) {
+            $query->where('requestor_id', $requestorId);
+        }
+        if ($exclusive === '1') {
+            $query->where('exclusive', true);
+        } elseif ($exclusive === '0') {
+            $query->where(function ($q) {
+                $q->where('exclusive', false)->orWhereNull('exclusive');
+            });
+        }
+        if ($statusId === 'unknown') {
+            $query->whereNull('status_id');
+        } elseif (!empty($statusId)) {
+            $query->where('status_id', $statusId);
+        }
 
         // เพิ่ม search functionality
         if ($search) {
@@ -62,12 +92,22 @@ class PatternController extends Controller
 
         $data = [
             'statuses'   => Status::all(),
+            'statusFilters' => Status::where('status', '!=', 'Cancel')->get(),
             'designers'  => Designer::all(),
             'requestors' => Requestor::all(),
             'customers'  => Customer::all(),
         ];
         $permissions = $this->getUserPermissions();
-        return view('pattern', array_merge($data, compact('patterns', 'perPage', 'search'), $permissions));
+        return view('pattern', array_merge($data, compact(
+            'patterns',
+            'perPage',
+            'search',
+            'customerId',
+            'designerId',
+            'requestorId',
+            'exclusive',
+            'statusId'
+        ), $permissions));
     }
 
     private function handleNewSelectableData(array &$data)

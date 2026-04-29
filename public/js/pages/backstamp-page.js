@@ -3,12 +3,18 @@
  */
 
 function backstampPage() {
+    const searchParams = new URLSearchParams(window.location.search);
+
     return {
         BackstampDetailModal: false,
         CreateBackstampModal: false,
         EditBackstampModal: false,
         DeleteBackstampModal: false,
         backstampIdToDelete: null,
+        showTFilter: searchParams.has('customer_id') ||
+                    searchParams.has('requestor_id') ||
+                    searchParams.has('organic') ||
+                    searchParams.has('status_id'),  
         backstampToEdit: {},
         backstampToView: {},
         itemCodeToDelete: '',
@@ -103,5 +109,4 @@ function backstampPage() {
     }
 }
 
-// Make function available globally
 window.backstampPage = backstampPage;

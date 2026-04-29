@@ -28,9 +28,35 @@ class BackstampController extends Controller
 
         // รับค่า search
         $search = $request->get('search');
+        $customerId = $request->query('customer_id');
+        $requestorId = $request->query('requestor_id');
+        $organic = $request->query('organic');
+        $defaultStatus = Status::where('status', 'Active')->value('id');
+        $rawStatusId = $request->query('status_id');
+        $statusId = $rawStatusId === 'all' 
+                    ? null 
+                    : ($request->has('status_id') ? $rawStatusId : $defaultStatus);
         $query = Backstamp::with($relations)->where(function($q) {
             $q->where('status_id', '!=', 1)->orWhereNull('status_id');
         }); 
+        if (!empty($customerId)) {
+            $query->where('customer_id', $customerId);
+        }
+        if (!empty($requestorId)) {
+            $query->where('requestor_id', $requestorId);
+        }
+        if ($organic === '1') {
+            $query->where('organic', true);
+        } elseif ($organic === '0') {
+            $query->where(function ($q) {
+                $q->where('organic', false)->orWhereNull('organic');
+            });
+        }
+        if ($statusId === 'unknown') {
+            $query->whereNull('status_id');
+        } elseif (!empty($statusId)) {
+            $query->where('status_id', $statusId);
+        }
         // เพิ่ม search functionality 
         if ($search) {
             $query->where(function($q) use ($search) {
@@ -54,11 +80,20 @@ class BackstampController extends Controller
 
         $data = [
             'statuses'   => Status::all(),
+            'statusFilters' => Status::where('status', '!=', 'Cancel')->get(),
             'requestors' => Requestor::all(),
             'customers'  => Customer::all(),
         ];
         $permissions = $this->getUserPermissions();
-        return view('backstamp', array_merge($data, compact('backstamps', 'perPage', 'search'), $permissions));
+        return view('backstamp', array_merge($data, compact(
+            'backstamps',
+            'perPage',
+            'search',
+            'customerId',
+            'requestorId',
+            'organic',
+            'statusId'
+        ), $permissions));
     }
 
     private function handleNewSelectableData(array &$data)

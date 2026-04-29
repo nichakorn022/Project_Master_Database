@@ -3,11 +3,17 @@
  */
 
 function glazePage() {
+    const searchParams = new URLSearchParams(window.location.search);
+
     return {
         GlazeDetailModal: false,
         CreateGlazeModal: false,
         EditGlazeModal: false,
         DeleteGlazeModal: false,
+        showFilter: searchParams.has('effect_id') ||
+                    searchParams.has('glaze_inside_id') ||
+                    searchParams.has('glaze_outer_id') ||
+                    searchParams.has('status_id'),
         glazeIdToDelete: null,
         glazeToEdit: {},
         glazeToView: {},
