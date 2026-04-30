@@ -45,6 +45,7 @@ class ShapesExport implements FromQuery, WithHeadings, WithMapping, WithColumnFo
                 'height_long',
                 'height_short',
                 'body',
+                'mold',
                 'approval_date',
             );
     }
@@ -73,6 +74,7 @@ class ShapesExport implements FromQuery, WithHeadings, WithMapping, WithColumnFo
             $shape->height_long,
             $shape->height_short,
             $shape->body,
+            $shape->mold,
             $shape->approval_date ? $shape->approval_date->format('Y-m-d') : '',
         ];
     }
@@ -101,6 +103,7 @@ class ShapesExport implements FromQuery, WithHeadings, WithMapping, WithColumnFo
             'Height Long',
             'Height Short',
             'Body',
+            'Mold',
             'Approval Date',
         ];
     }
@@ -122,6 +125,7 @@ class ShapesExport implements FromQuery, WithHeadings, WithMapping, WithColumnFo
             'I' => NumberFormat::FORMAT_TEXT, // Process เป็น Text
             'J' => NumberFormat::FORMAT_TEXT, // Designer เป็น Text
             'K' => NumberFormat::FORMAT_TEXT, // Requestor เป็น Text
+            'L' => NumberFormat::FORMAT_TEXT, // Mold เป็น Text
             'S' => NumberFormat::FORMAT_DATE_YYYYMMDD2, // Approval Date
         ];
     }
