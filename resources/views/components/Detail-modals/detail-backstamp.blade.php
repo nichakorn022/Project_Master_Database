@@ -16,11 +16,36 @@
     <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-6xl mx-4 relative overflow-visible h-[90vh] flex flex-col">
         
         <!-- Header -->
-        <div class="bg-gradient-to-r from-orange-600 to-orange-800 dark:from-orange-700 dark:to-orange-900 text-white p-6 flex justify-between items-center flex-shrink-0 rounded-t-2xl">
+        <div class="text-white p-6 flex gap-5 rounded-t-2xl"
+            :class="{
+            'bg-gradient-to-r from-blue-500 via-green-500 to-orange-500':
+            backstampToView?.organic && backstampToView?.exclusive,
+
+            'bg-gradient-to-r from-green-500 to-orange-500':
+            backstampToView?.organic && !backstampToView?.exclusive,
+
+            'bg-gradient-to-r from-blue-500 to-orange-500':
+            backstampToView?.exclusive && !backstampToView?.organic,
+
+            'bg-gradient-to-r from-orange-500 to-orange-700':
+            !backstampToView?.organic && !backstampToView?.exclusive}"
+        >   
             <div>
                 <h2 class="text-2xl font-bold" x-text="backstampToView?.backstamp_code || '{{ __('content.details') }} {{ __('content.backstamp') }}'"></h2>
                 <p class="text-orange-100 dark:text-orange-200 text-sm mt-1" x-text="backstampToView?.name || '{{ __('content.details') }} {{ __('content.backstamp') }}'"></p>
             </div>
+            <template x-if="backstampToView?.exclusive === true">
+                <div class="flex gap-2 bg-blue-500 px-4 py-2 rounded-full shadow-md shadow-blue-700/70 items-center">
+                    <span class="text-3xl material-symbols-outlined text-white">loyalty</span>
+                    <span class="text-2xl font-semibold text-white">{{ __('content.exclusive') }}</span>
+                </div>
+            </template>
+            <template x-if="backstampToView?.organic === true">
+                <div class="flex gap-2 bg-green-500 px-4 py-2 rounded-full shadow-md shadow-green-700/70 items-center">
+                    <span class="text-3xl material-symbols-outlined text-white">eco</span>
+                    <span class="text-2xl font-semibold text-white">{{ __('content.organic') }}</span>
+                </div>
+            </template>
             <button @click="BackstampDetailModal = false"
                 class="text-white ml-auto hoverScale">
                 <span class="material-symbols-outlined text-2xl">close</span>

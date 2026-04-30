@@ -244,7 +244,7 @@
                 @if ($processId)
                     <a
                         href="{{ route('shape.index', array_merge(request()->except('process_id', 'page'), ['process_id' => 'all', 'per_page' => request('per_page', 10)])) }}"
-                        class="inline-flex items-center gap-1 px-3 py-1 text-sm rounded-full bg-purple-100 text-purple-800 hover:bg-purple-200 dark:bg-purple-900 dark:text-purple-300 dark:hover:bg-purple-800"
+                        class="inline-flex items-center gap-1 px-3 py-1 text-sm rounded-full bg-blue-100 text-blue-800 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-300 dark:hover:bg-blue-800"
                     >
                         <span>{{ $processes->firstWhere('id', $processId)->process_name ?? 'Unknown' }}</span>
                         <span class="material-symbols-outlined text-[8px]">close</span>
@@ -254,7 +254,7 @@
                 @if (request('mold') !== null && request('mold') !== '')
                     <a
                         href="{{ route('shape.index', array_merge(request()->except('mold', 'page'), ['per_page' => request('per_page', 10)])) }}"
-                        class="inline-flex items-center gap-1 px-3 py-1 text-sm rounded-full bg-amber-100 text-amber-800 hover:bg-amber-200 dark:bg-amber-900 dark:text-amber-300 dark:hover:bg-amber-800"
+                        class="inline-flex items-center gap-1 px-3 py-1 text-sm rounded-full bg-green-100 text-green-800 hover:bg-green-200 dark:bg-green-900 dark:text-green-300 dark:hover:bg-green-800"
                     >
                         <span>{{ __('content.mold') }}: {{ request('mold') === '1' ? 'Yes' : 'No' }}</span>
                         <span class="material-symbols-outlined text-[8px]">close</span>

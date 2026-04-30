@@ -5,7 +5,12 @@
     class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" style="display: none;">
 
     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-2xl p-6 overflow-y-auto max-h-[90vh]">
-        <h2 class="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">{{ __("content.create_glaze_inside") }}</h2>
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">{{ __("content.create_glaze_inside") }}</h2>
+            <button @click="CreateGlazeInsideModal = false" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 ml-auto hoverScale">
+                <span class="material-symbols-outlined text-2xl">close</span>
+            </button>
+        </div>
         <hr class="mb-3 dark:border-gray-600">
 
         <form @submit.prevent="submitGlazeInsideForm" class="space-y-4" x-data="{

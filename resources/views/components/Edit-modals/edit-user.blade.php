@@ -37,7 +37,12 @@
             });
         ">
 
-        <h2 class="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">{{__('content.edit_user')}}</h2>
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">{{__('content.edit_user')}}</h2>
+            <button @click="EditUserModal = false" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 ml-auto hoverScale">
+                <span class="material-symbols-outlined text-2xl">close</span>
+            </button>
+        </div>
         <hr class="mb-3 border-gray-200 dark:border-gray-600">
 
         <!-- Dynamic Error Display Area -->
