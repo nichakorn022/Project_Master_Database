@@ -19,6 +19,7 @@ class BackstampsTemplateExport implements FromArray, WithHeadings, WithColumnFor
                 // 'IKEA', 
                 // 'Active', 
                 // 'No', 
+                // 'TRUE',
                 // 'TRUE', 
                 // 'No', 
                 // 'TRUE', 
@@ -37,6 +38,7 @@ class BackstampsTemplateExport implements FromArray, WithHeadings, WithColumnFor
             'Customer',
             'Status',
             'Organic',
+            'Exclusive',
             'In Glaze',
             'On Glaze',
             'Under Glaze',
@@ -56,7 +58,7 @@ class BackstampsTemplateExport implements FromArray, WithHeadings, WithColumnFor
             'C' => NumberFormat::FORMAT_TEXT, // Requestor
             'D' => NumberFormat::FORMAT_TEXT, // Customer
             'E' => NumberFormat::FORMAT_TEXT, // Status
-            'K' => NumberFormat::FORMAT_DATE_YYYYMMDD2, // Approval Date
+            'L' => NumberFormat::FORMAT_DATE_YYYYMMDD2, // Approval Date
         ];
     }
 }

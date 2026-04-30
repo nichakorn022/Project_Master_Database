@@ -179,6 +179,8 @@ return [
     'exclusive_customer' => 'พิเศษเฉพาะลูกค้ารายนี้',
     'exclusive' => 'เอ็กซ์คลูซีฟ',
     'organic' => 'ออร์แกนิก',
+    'mold' => 'แม่พิมพ์',
+    'no_mold' => 'ไม่มีแม่พิมพ์',
     'information' => 'ข้อมูล',
     'specification' => 'สเปค',
     'update_information' => 'ข้อมูลการอัพเดต',

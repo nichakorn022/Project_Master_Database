@@ -4,14 +4,14 @@ namespace App\Imports;
 
 use App\Models\Shape;
 use App\Services\ImportHelperService;
-use Maatwebsite\Excel\Concerns\ToCollection;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
-use Maatwebsite\Excel\Validators\Failure;
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
+use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Validators\Failure;
 use PhpOffice\PhpSpreadsheet\Shared\Date as ExcelDate;
-use Carbon\Carbon;
 
 class ShapesImport implements ToCollection, WithHeadingRow, SkipsEmptyRows
 {
@@ -24,24 +24,18 @@ class ShapesImport implements ToCollection, WithHeadingRow, SkipsEmptyRows
         $this->importHelper = new ImportHelperService();
     }
 
-    /**
-     * เก็บข้อมูลทั้งหมดไว้ก่อน ไม่บันทึกทันที
-     */
     public function collection(Collection $rows)
     {
         foreach ($rows as $index => $row) {
             $rowNumber = $index + 2;
             $hasErrors = false;
 
-            // แปลง approval_date จาก Excel format ก่อน validate
             if (!empty($row['approval_date'])) {
                 $row['approval_date'] = $this->parseExcelDate($row['approval_date']);
             }
 
-            // 1. เช็ค relations แบบ fast lookup
             $relationErrors = [];
 
-            // เช็ค type (case-insensitive)
             if (!empty($row['type'])) {
                 $shapeTypeId = $this->importHelper->findShapeTypeCaseInsensitive($row['type']);
                 if ($shapeTypeId === null) {
@@ -51,7 +45,6 @@ class ShapesImport implements ToCollection, WithHeadingRow, SkipsEmptyRows
                 }
             }
 
-            // เช็ค status (case-insensitive)
             if (!empty($row['status'])) {
                 $statusId = $this->importHelper->findStatusCaseInsensitive($row['status']);
                 if ($statusId === null) {
@@ -61,7 +54,6 @@ class ShapesImport implements ToCollection, WithHeadingRow, SkipsEmptyRows
                 }
             }
 
-            // เช็ค shape_collection (case-insensitive)
             if (!empty($row['collection_code'])) {
                 $collectionCodeId = $this->importHelper->findShapeCollectionCaseInsensitive($row['collection_code']);
                 if ($collectionCodeId === null) {
@@ -71,25 +63,18 @@ class ShapesImport implements ToCollection, WithHeadingRow, SkipsEmptyRows
                 }
             }
 
-            // เช็ค requestor - ถ้าไม่เจอให้สร้างใหม่
             if (!empty($row['process'])) {
-                $processId = $this->importHelper->getOrCreateProcess($row['process']);
-                $row['process_id'] = $processId;
+                $row['process_id'] = $this->importHelper->getOrCreateProcess($row['process']);
             }
 
-            // เช็ค requestor - ถ้าไม่เจอให้สร้างใหม่
             if (!empty($row['requestor'])) {
-                $requestorId = $this->importHelper->getOrCreateRequestor($row['requestor']);
-                $row['requestor_id'] = $requestorId;
+                $row['requestor_id'] = $this->importHelper->getOrCreateRequestor($row['requestor']);
             }
 
-            // เช็ค designer - ถ้าไม่เจอให้สร้างใหม่
             if (!empty($row['designer'])) {
-                $designerId = $this->importHelper->getOrCreateDesigner($row['designer']);
-                $row['designer_id'] = $designerId;
+                $row['designer_id'] = $this->importHelper->getOrCreateDesigner($row['designer']);
             }
 
-            // เช็ค item_group (case-insensitive)
             if (!empty($row['item_group'])) {
                 $itemGroupId = $this->importHelper->findItemGroupCaseInsensitive($row['item_group']);
                 if ($itemGroupId === null) {
@@ -99,7 +84,6 @@ class ShapesImport implements ToCollection, WithHeadingRow, SkipsEmptyRows
                 }
             }
 
-            // เช็ค customer (case-insensitive)
             if (!empty($row['customer'])) {
                 $customerId = $this->importHelper->findCustomerCaseInsensitive($row['customer']);
                 if ($customerId === null) {
@@ -109,7 +93,6 @@ class ShapesImport implements ToCollection, WithHeadingRow, SkipsEmptyRows
                 }
             }
 
-            // ถ้ามี relation errors ให้เก็บไว้
             if (!empty($relationErrors)) {
                 $this->failures[] = new Failure(
                     $rowNumber,
@@ -120,14 +103,13 @@ class ShapesImport implements ToCollection, WithHeadingRow, SkipsEmptyRows
                 $hasErrors = true;
             }
 
-            // 2. เช็ค validation ทั่วไป
             $validator = Validator::make($row->toArray(), $this->rules(), $this->customValidationMessages());
-            
+
             if ($validator->fails()) {
-                foreach ($validator->errors()->messages() as $attribute => $errors) {
+                foreach ($validator->errors()->messages() as $errors) {
                     $this->failures[] = new Failure(
                         $rowNumber,
-                        '', 
+                        '',
                         $errors,
                         $row->toArray()
                     );
@@ -135,26 +117,21 @@ class ShapesImport implements ToCollection, WithHeadingRow, SkipsEmptyRows
                 $hasErrors = true;
             }
 
-            // 3. ถ้าไม่มี error เก็บข้อมูลไว้
             if (!$hasErrors) {
                 $this->rowsData[] = $row->toArray();
             }
         }
 
-        // ถ้าไม่มี failures เลย ค่อยบันทึกข้อมูลทั้งหมด
         if (empty($this->failures)) {
             $this->batchUpsert();
         }
     }
 
-    /**
-     * Batch Upsert - บันทึกข้อมูลทั้งหมดพร้อมกัน
-     */
     private function batchUpsert()
     {
         $data = [];
         $now = now();
-        
+
         foreach ($this->rowsData as $row) {
             $data[] = [
                 'item_code' => $row['item_code'],
@@ -175,6 +152,7 @@ class ShapesImport implements ToCollection, WithHeadingRow, SkipsEmptyRows
                 'height_long' => $row['height_long'] ?? null,
                 'height_short' => $row['height_short'] ?? null,
                 'body' => $row['body'] ?? null,
+                'mold' => $this->importHelper->convertToBoolean($row['mold'] ?? null),
                 'approval_date' => $row['approval_date'] ?? null,
                 'updated_by' => auth()->id() ?? null,
                 'created_at' => $now,
@@ -182,7 +160,6 @@ class ShapesImport implements ToCollection, WithHeadingRow, SkipsEmptyRows
             ];
         }
 
-        // แบ่งเป็น chunks ละ 500 แถว เพื่อป้องกัน query ใหญ่เกินไป
         foreach (array_chunk($data, 500) as $chunk) {
             Shape::upsert(
                 $chunk,
@@ -205,6 +182,7 @@ class ShapesImport implements ToCollection, WithHeadingRow, SkipsEmptyRows
                     'height_long',
                     'height_short',
                     'body',
+                    'mold',
                     'approval_date',
                     'updated_by',
                     'updated_at'
@@ -213,17 +191,11 @@ class ShapesImport implements ToCollection, WithHeadingRow, SkipsEmptyRows
         }
     }
 
-    /**
-     * ดึง failures ทั้งหมด
-     */
     public function getFailures()
     {
         return $this->failures;
     }
 
-    /**
-     * @return array
-     */
     public function rules(): array
     {
         return [
@@ -245,13 +217,11 @@ class ShapesImport implements ToCollection, WithHeadingRow, SkipsEmptyRows
             'height_long' => 'nullable|numeric',
             'height_short' => 'nullable|numeric',
             'body' => 'nullable|numeric',
+            'mold' => 'nullable|in:TRUE,FALSE,true,false,1,0,yes,no,Yes,No,YES,NO,ใช่,ไม่',
             'approval_date' => 'nullable|date_format:Y-m-d',
         ];
     }
 
-    /**
-     * @return array
-     */
     public function customValidationMessages()
     {
         return [
@@ -274,13 +244,11 @@ class ShapesImport implements ToCollection, WithHeadingRow, SkipsEmptyRows
             'height_long.numeric' => __('valid.err.height_long.numeric'),
             'height_short.numeric' => __('valid.err.height_short.numeric'),
             'body.numeric' => __('valid.err.body.numeric'),
+            'mold.in' => __('valid.err.mold.in'),
             'approval_date.date_format' => __('valid.err.approval_date.date')
         ];
     }
 
-    /**
-     * แปลงวันที่จาก Excel ให้เป็น Y-m-d format
-     */
     private function parseExcelDate($date)
     {
         if (empty($date) || is_null($date)) {
@@ -299,11 +267,11 @@ class ShapesImport implements ToCollection, WithHeadingRow, SkipsEmptyRows
 
             if (is_string($date)) {
                 $date = trim($date);
-                
+
                 if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
                     return $date;
                 }
-                
+
                 return Carbon::parse($date)->format('Y-m-d');
             }
 

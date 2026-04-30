@@ -161,6 +161,22 @@
                             </div>
                             </template>
 
+                            <!-- Mold -->
+                            <div class="flex flex-row gap-2 items-center">
+                                <span class="material-symbols-outlined text-base text-yellow-600 dark:text-yellow-400">
+                                    Construction
+                                </span>
+                                <label class="text-gray-700 dark:text-gray-300">
+                                    {{ __('content.mold') }}:
+                                </label>
+                                <template x-if="shapeToView?.mold === true">
+                                    <span class="material-symbols-outlined text-green-600 dark:text-green-400">check</span>
+                                </template>
+                                <template x-if="shapeToView?.mold === false">
+                                    <span class="material-symbols-outlined text-gray-500 dark:text-gray-400">close</span>
+                                </template>
+                            </div>
+
                             <!-- Approval Date -->
                             <template x-if="shapeToView?.approval_date">
                             <div class="flex flex-row gap-2 items-center">

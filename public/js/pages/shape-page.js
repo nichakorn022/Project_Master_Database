@@ -13,6 +13,7 @@ function shapePage() {
         showFilter: searchParams.has('shape_type_id') ||
                     searchParams.has('shape_collection_id') ||
                     searchParams.has('item_group_id') ||
+                    searchParams.has('mold') ||
                     searchParams.has('process_id') ||
                     searchParams.has('status_id'),
         shapeIdToDelete: null,

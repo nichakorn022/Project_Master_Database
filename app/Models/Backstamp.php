@@ -20,6 +20,7 @@ class Backstamp extends Model
         'on_glaze',
         'under_glaze',
         'air_dry',
+        'exclusive',
         'approval_date',
         'updated_by',
         'created_at',
@@ -31,6 +32,7 @@ class Backstamp extends Model
         'on_glaze' => 'boolean',
         'under_glaze' => 'boolean',
         'air_dry' => 'boolean',
+        'exclusive' => 'boolean',
         'approval_date' => 'datetime',
     ];
 

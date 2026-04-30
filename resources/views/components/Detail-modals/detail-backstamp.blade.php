@@ -111,6 +111,21 @@
                                 </template>
                             </div>
 
+                            <div class="flex flex-row gap-2 items-center">
+                                <span class="material-symbols-outlined text-base text-blue-600 dark:text-blue-400">
+                                    Loyalty
+                                </span>
+                                <label class="text-gray-700 dark:text-gray-300">
+                                    {{ __('content.exclusive') }}:
+                                </label>
+                                <template x-if="backstampToView?.exclusive === true">
+                                    <span class="material-symbols-outlined text-green-600 dark:text-green-400">check</span>
+                                </template>
+                                <template x-if="backstampToView?.exclusive === false">
+                                    <span class="material-symbols-outlined text-gray-500 dark:text-gray-400">close</span>
+                                </template>
+                            </div>
+
                             <!-- In Glaze -->
                             <div class="flex flex-row gap-2 items-center">
                                 <span class="material-symbols-outlined text-base text-purple-600 dark:text-purple-400">

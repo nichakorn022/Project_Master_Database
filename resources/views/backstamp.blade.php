@@ -58,7 +58,7 @@
                 </div>
 
                 <div x-show="showFilter" x-cloak class="border border-gray-200 rounded-lg p-4 bg-gray-50 dark:bg-gray-700/40 dark:border-gray-600">
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
                         <div>
                             <label for="customer_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('content.customer') }}</label>
                             <select id="customer_id" name="customer_id" onchange="this.form.submit()"
@@ -102,12 +102,22 @@
                                 <option value="0" {{ $organic === '0' ? 'selected' : '' }}>No</option>
                             </select>
                         </div>
+
+                        <div>
+                            <label for="exclusive" class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('content.exclusive') }}</label>
+                            <select id="exclusive" name="exclusive" onchange="this.form.submit()"
+                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100">
+                                <option value="">All</option>
+                                <option value="1" {{ $exclusive === '1' ? 'selected' : '' }}>Yes</option>
+                                <option value="0" {{ $exclusive === '0' ? 'selected' : '' }}>No</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </form>
         </div>
 
-        @if ($customerId || $requestorId || $statusId || ($organic !== null && $organic !== ''))
+        @if ($customerId || $requestorId || $statusId || ($organic !== null && $organic !== '') || ($exclusive !== null && $exclusive !== ''))
             <div class="flex flex-wrap gap-2 mb-3">
                 <span class="px-3 py-1 text-sm rounded-full bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300">
                     {{ __('content.filter') }}:
@@ -140,6 +150,13 @@
                         <span class="material-symbols-outlined text-[8px]">close</span>
                     </a>
                 @endif
+                @if ($exclusive !== null && $exclusive !== '')
+                    <a href="{{ route('backstamp.index', array_merge(request()->except('exclusive', 'page'), ['per_page' => request('per_page', 10)])) }}"
+                        class="inline-flex items-center gap-1 px-3 py-1 text-sm rounded-full bg-purple-100 text-purple-800 hover:bg-purple-200 dark:bg-purple-900 dark:text-purple-300 dark:hover:bg-purple-800">
+                        <span>{{ __('content.exclusive') }}: {{ $exclusive === '1' ? 'Yes' : 'No' }}</span>
+                        <span class="material-symbols-outlined text-[8px]">close</span>
+                    </a>
+                @endif
             </div>
         @endif
         <!-- Table -->
@@ -153,6 +170,7 @@
                             <th class="px-4 py-3 text-left">{{ __('content.backstamp_code') }}</th>
                             <th class="px-4 py-3 text-left">{{ __('content.description') }}</th>
                             <th class="px-4 py-3 text-center">{{ __('content.organic') }}</th>
+                            <th class="px-4 py-3 text-center">{{ __('content.exclusive') }}</th>
                             <th class="px-4 py-3 text-center">{{ __('content.status') }}</th>
                             <th class="px-4 py-3 text-right">{{ __('content.customer') }}</th>
                             <th class="px-4 py-3 text-right">{{ __('content.updated_by') }}</th>
@@ -174,6 +192,13 @@
                             <td class="px-4 py-3">{{ $backstamp->name ?? '-'}}</td>
                             <td class="px-4 py-3 text-center">
                                 @if ($backstamp->organic)
+                                    <span class="material-symbols-outlined text-green-500">radio_button_checked</span>
+                                @else
+                                    <span class="material-symbols-outlined text-gray-400">radio_button_unchecked</span>
+                                @endif
+                            </td>
+                            <td class="px-4 py-3 text-center">
+                                @if ($backstamp->exclusive)
                                     <span class="material-symbols-outlined text-green-500">radio_button_checked</span>
                                 @else
                                     <span class="material-symbols-outlined text-gray-400">radio_button_unchecked</span>
@@ -209,7 +234,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="9" class="px-6 py-4 text-sm text-gray-500 text-center 
+                            <td colspan="8" class="px-6 py-4 text-sm text-gray-500 text-center 
                                             dark:text-gray-400">
                                 @if(request('search'))
                                     {{ __('content.not_found') }} "{{ request('search') }}".

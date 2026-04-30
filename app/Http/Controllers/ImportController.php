@@ -49,6 +49,7 @@ class ImportController extends Controller
             'height_long',
             'height_short',
             'body',
+            'mold',
             'approval_date',
         ];
         $importClass = ShapesImport::class;

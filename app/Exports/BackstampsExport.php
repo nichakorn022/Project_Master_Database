@@ -24,6 +24,7 @@ class BackstampsExport implements FromQuery, WithHeadings, WithMapping, WithColu
                 'customer_id',
                 'status_id',
                 'organic',
+                'exclusive',
                 'in_glaze',
                 'on_glaze',
                 'under_glaze',
@@ -44,6 +45,7 @@ class BackstampsExport implements FromQuery, WithHeadings, WithMapping, WithColu
             $backstamp->customer ? $backstamp->customer->name : '',
             $backstamp->status ? $backstamp->status->status : '',
             $backstamp->organic,
+            $backstamp->exclusive,
             $backstamp->in_glaze,
             $backstamp->on_glaze,
             $backstamp->under_glaze,
@@ -64,6 +66,7 @@ class BackstampsExport implements FromQuery, WithHeadings, WithMapping, WithColu
             'Customer',
             'Status',
             'Organic',
+            'Exclusive',
             'In Glaze',
             'On Glaze',
             'Under Glaze',
@@ -83,7 +86,7 @@ class BackstampsExport implements FromQuery, WithHeadings, WithMapping, WithColu
             'C' => NumberFormat::FORMAT_TEXT, // Requestor
             'D' => NumberFormat::FORMAT_TEXT, // Customer
             'E' => NumberFormat::FORMAT_TEXT, // Status
-            'K' => NumberFormat::FORMAT_DATE_YYYYMMDD2, // Approval Date
+            'L' => NumberFormat::FORMAT_DATE_YYYYMMDD2, // Approval Date
         ];
     }
 }

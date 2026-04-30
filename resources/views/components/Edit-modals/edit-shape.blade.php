@@ -281,6 +281,19 @@
                 </div>
 
                 <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('content.mold') }}</label>
+                    <select name="mold" x-model="shapeToEdit.mold"
+                        :class="errors.mold ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'"
+                        class="mt-1 w-full border rounded-md px-3 py-2 dark:bg-gray-700 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="0">{{ __('content.no_mold') }}</option>
+                        <option value="1">{{ __('content.mold') }}</option>
+                    </select>
+                    <p x-show="errors.mold"
+                        x-text="errors.mold ? (Array.isArray(errors.mold) ? errors.mold[0] : errors.mold) : ''"
+                        class="text-red-500 dark:text-red-400 text-xs mt-1"></p>
+                </div>
+
+                <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('content.approval_date') }}</label>
                     <input type="date" name="approval_date" x-model="shapeToEdit.approval_date"
                         :class="errors.approval_date ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'"

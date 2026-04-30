@@ -14,6 +14,7 @@ class Shape extends Model
     
     protected $casts = [
         'approval_date' => 'datetime',
+        'mold' => 'boolean',
     ];
 
     protected $fillable = [
@@ -35,6 +36,7 @@ class Shape extends Model
         'height_long',
         'height_short',
         'body',
+        'mold',
         'approval_date',
         'updated_by',
         'created_at',

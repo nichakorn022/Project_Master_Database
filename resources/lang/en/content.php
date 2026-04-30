@@ -178,6 +178,8 @@ return [
     'backstamp' => 'Backstamp',
     'exclusive_customer' => 'Exclusive to This Customer',
     'exclusive' => 'Exclusive',
+    'mold' => 'Mold',
+    'no_mold' => 'No Mold',
     'organic' => 'Organic',
     'information' => 'Information',
     'specification' => 'Specification',

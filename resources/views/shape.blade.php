@@ -80,7 +80,7 @@
                     x-cloak
                     class="border border-gray-200 rounded-lg p-4 bg-gray-50 dark:bg-gray-700/40 dark:border-gray-600"
                 >
-                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
                         <div>
                             <label for="shape_type_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 {{ __('content.type') }}
@@ -176,12 +176,28 @@
                                 @endforeach
                             </select>
                         </div>
+
+                        <div>
+                            <label for="mold" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                {{ __('content.mold') }}
+                            </label>
+                            <select
+                                id="mold"
+                                name="mold"
+                                onchange="this.form.submit()"
+                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+                            >
+                                <option value="">All</option>
+                                <option value="1" {{ request('mold') === '1' ? 'selected' : '' }}>Yes</option>
+                                <option value="0" {{ request('mold') === '0' ? 'selected' : '' }}>No</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </form>
         </div>
         <!-- Tag Filter -->
-        @if ($shapeType || request('shape_collection_id') || request('item_group_id') || $statusId || $processes)
+        @if ($shapeType || request('shape_collection_id') || request('item_group_id') || $statusId || $processId || (request('mold') !== null && request('mold') !== ''))
             <div class="flex flex-wrap gap-2 mb-3">
                 <span class="px-3 py-1 text-sm rounded-full bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300">
                     {{ __('content.filter') }}:
@@ -234,6 +250,16 @@
                         <span class="material-symbols-outlined text-[8px]">close</span>
                     </a>
                 @endif
+
+                @if (request('mold') !== null && request('mold') !== '')
+                    <a
+                        href="{{ route('shape.index', array_merge(request()->except('mold', 'page'), ['per_page' => request('per_page', 10)])) }}"
+                        class="inline-flex items-center gap-1 px-3 py-1 text-sm rounded-full bg-amber-100 text-amber-800 hover:bg-amber-200 dark:bg-amber-900 dark:text-amber-300 dark:hover:bg-amber-800"
+                    >
+                        <span>{{ __('content.mold') }}: {{ request('mold') === '1' ? 'Yes' : 'No' }}</span>
+                        <span class="material-symbols-outlined text-[8px]">close</span>
+                    </a>
+                @endif
             </div>
         @endif
         <!-- Table -->
@@ -246,6 +272,7 @@
                             <th class="px-4 py-3 text-left">{{ __('content.description_th') }}</th>
                             <th class="px-4 py-3 text-left">{{ __('content.description_en') }}</th>
                             <th class="px-4 py-3 text-left">{{ __('content.type') }}</th>
+                            <th class="px-4 py-3 text-center">{{ __('content.mold') }}</th>
                             <th class="px-4 py-3 text-left">{{ __('content.status') }}</th>
                             <th class="px-4 py-3 text-right">{{ __('content.customer') }}</th>
                             <th class="px-4 py-3 text-right">{{ __('content.updated_by') }}</th>
@@ -271,6 +298,13 @@
                                 <td class="px-4 py-3">{{ Str::limit($shape->item_description_thai, 15) ?? '-' }}</td>
                                 <td class="px-4 py-3">{{ Str::limit($shape->item_description_eng, 15) ?? '-' }}</td>
                                 <td class="px-4 py-3">{{ $type }}</td>
+                                <td class="px-4 py-3 text-center">
+                                    @if ($shape->mold)
+                                        <span class="material-symbols-outlined text-green-500">radio_button_checked</span>
+                                    @else
+                                        <span class="material-symbols-outlined text-gray-400">radio_button_unchecked</span>
+                                    @endif
+                                </td>
                                 <td class="px-4 py-3">
                                     <span class="{{ $statusColor }} px-2 py-1 rounded-full text-xs font-semibold">
                                         {{ $status }}
@@ -304,7 +338,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8" class="px-6 py-4 text-sm text-gray-500 text-center dark:text-gray-400">
+                                <td colspan="9" class="px-6 py-4 text-sm text-gray-500 text-center dark:text-gray-400">
                                     @if (request('search'))
                                         {{ __('content.not_found') }} "{{ request('search') }}".
                                     @else

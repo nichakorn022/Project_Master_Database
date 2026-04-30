@@ -31,6 +31,7 @@ class BackstampController extends Controller
         $customerId = $request->query('customer_id');
         $requestorId = $request->query('requestor_id');
         $organic = $request->query('organic');
+        $exclusive = $request->query('exclusive');
         $defaultStatus = Status::where('status', 'Active')->value('id');
         $rawStatusId = $request->query('status_id');
         $statusId = $rawStatusId === 'all' 
@@ -50,6 +51,13 @@ class BackstampController extends Controller
         } elseif ($organic === '0') {
             $query->where(function ($q) {
                 $q->where('organic', false)->orWhereNull('organic');
+            });
+        }
+        if ($exclusive === '1') {
+            $query->where('exclusive', true);
+        } elseif ($exclusive === '0') {
+            $query->where(function ($q) {
+                $q->where('exclusive', false)->orWhereNull('exclusive');
             });
         }
         if ($statusId === 'unknown') {
@@ -92,6 +100,7 @@ class BackstampController extends Controller
             'customerId',
             'requestorId',
             'organic',
+            'exclusive',
             'statusId'
         ), $permissions));
     }
@@ -142,6 +151,7 @@ class BackstampController extends Controller
             'under_glaze'    => 'nullable|boolean',
             'air_dry'        => 'nullable|boolean',
             'organic'        => 'nullable|boolean',
+            'exclusive'      => 'nullable|boolean',
             'approval_date'  => 'nullable|date',
         ];
     }
@@ -160,6 +170,7 @@ class BackstampController extends Controller
             'under_glaze.boolean' => __('controller.validation.under_glaze.boolean'),
             'air_dry.boolean' => __('controller.validation.air_dry.boolean'),
             'organic.boolean' => __('controller.validation.organic.boolean'),
+            'exclusive.boolean' => __('controller.validation.exclusive.boolean'),
             'approval_date.date' => __('controller.validation.approval_date.date'),
         ];
     }

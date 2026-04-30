@@ -42,6 +42,7 @@ class ShapeController extends Controller
             ? null
             : ($request->has('status_id') ? $rawStatusId : $defaultStatus);
         $processId = $rawProcessId === 'all' ? null : $rawProcessId;
+        $mold = $request->query('mold');
 
         $query = Shape::with($relations)->where(function($q) {
             $q->where('status_id', '!=', 1)->orWhereNull('status_id');
@@ -70,7 +71,13 @@ class ShapeController extends Controller
             $query->where('status_id', $statusId);
         }
 
-
+        if ($mold === '1') {
+            $query->where('mold', true);
+        } elseif ($mold === '0') {
+            $query->where(function ($q) {
+                $q->where('mold', false)->orWhereNull('mold');
+            });
+        }
         // เพิ่ม search functionality
         if ($search) {
             $query->where(function($q) use ($search) {
@@ -123,7 +130,7 @@ class ShapeController extends Controller
 
         $permissions = $this->getUserPermissions();
 
-        return view('shape', array_merge($data, compact('shapes', 'perPage', 'search', 'shapeType', 'statusId', 'processId'), $permissions));
+        return view('shape', array_merge($data, compact('shapes', 'perPage', 'search', 'shapeType', 'statusId', 'processId', 'mold'), $permissions));
     }
 
     private function handleNewSelectableData(array &$data)
@@ -191,6 +198,7 @@ class ShapeController extends Controller
             'height_long'   => 'nullable|numeric',
             'height_short'  => 'nullable|numeric',
             'body'          => 'nullable|numeric',
+            'mold'          => 'nullable|boolean',
             'approval_date' => 'nullable|date',
         ];
     }
@@ -215,6 +223,7 @@ class ShapeController extends Controller
             'height_long.numeric' => __('controller.validation.height_long.numeric'),
             'height_short.numeric' => __('controller.validation.height_short.numeric'),
             'body.numeric' => __('controller.validation.body.numeric'),
+            'mold.boolean' => __('controller.validation.mold.boolean'),
             'approval_date.date' => __('controller.validation.approval_date.date'),
         ];
     }
