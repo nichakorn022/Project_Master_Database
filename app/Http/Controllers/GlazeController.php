@@ -26,16 +26,18 @@ class GlazeController extends Controller
         $allowedPerPage = [5, 10, 25, 50, 100];
         if (!in_array($perPage, $allowedPerPage)) {
             $perPage = 10;
-        }
+        }  
 
         // รับค่า search
         $search = $request->get('search');
         $effectId = $request->query('effect_id');
         $glazeInsideId = $request->query('glaze_inside_id');
         $glazeOuterId = $request->query('glaze_outer_id');
+        $defaultStatus = Status::where('status', 'Active')->value('id');
         $rawStatusId = $request->query('status_id');
-        $statusId = $rawStatusId === 'all' ? null : $rawStatusId;
-
+        $statusId = $rawStatusId === 'all' 
+                    ? null 
+                    : ($request->has('status_id') ? $rawStatusId : $defaultStatus);
         $query = Glaze::with($relations)->where(function($q) {
             $q->where('status_id', '!=', 1)->orWhereNull('status_id');
         });
